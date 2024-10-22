@@ -128,3 +128,20 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# MongoDB lock and log files
+*.lock
+*.log
+*.pid
+
+# React build directories
+build/
+dist/
+
+# Coverage files for testing
+coverage/
+
+# Editor-specific files
+.vscode/
+.idea/
+*.code-workspace
