@@ -2,9 +2,13 @@ import express from "express";
 import axios from "axios";
 import User from "../models/User";
 import mongoose from "mongoose";
-import bodyParser from "body-parser";
+import passport from "passport";
+import { Strategy } from "passport-local";
+import GoogleStrategy from "passport-google-oauth2";
+import session from "express-session";
 const router = express.Router();
 
+env.config();
 const mongoURI = "";
 
 mongoose.connect(mongoURI, {
@@ -48,9 +52,8 @@ const upsertUser = async (userData) => {
 const getToken = async (authCode) => {
     const tokenResponse = await axios.post('https://oauth2.googleapis.com/token', {
         code: authCode,
-        client_id: YOUR_CLIENT_ID,
-        client_secret: YOUR_CLIENT_SECRET,
-        redirect_uri: YOUR_REDIRECT_URI,
+        client_id: process.env.GOOGlE_CLIENT_ID,
+        client_secret: process.env.GOOGlE_CLIENT_SECRET,
         grant_type: 'authorization_code',
     });
     return tokenResponse.data.access_token;
@@ -65,7 +68,7 @@ const getUserInfo = async (accessToken) => {
     return userResponse.data;
 };
 
-router.post("api/OAuth", (req, res) => {
+router.post("OAuth", (req, res) => {
     const {authCode} = req.body;
     
     const accessToken = getToken(authCode);
@@ -74,3 +77,5 @@ router.post("api/OAuth", (req, res) => {
 
     upsertUser(userData);
 })
+
+module.exports = router;
