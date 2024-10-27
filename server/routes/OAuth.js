@@ -1,81 +1,114 @@
-import express from "express";
-import axios from "axios";
-import User from "../models/User";
-import mongoose from "mongoose";
+import express from 'express';
+import { MongoClient } from 'mongodb';
 import passport from "passport";
-import { Strategy } from "passport-local";
 import GoogleStrategy from "passport-google-oauth2";
-import session from "express-session";
+import jwt from "jsonwebtoken";  
+import dotenv from 'dotenv';
+import bodyParser from "body-parser";
+dotenv.config();
+
+const app = express();
 const router = express.Router();
 
-env.config();
-const mongoURI = "";
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
-mongoose.connect(mongoURI, {
-    useNewUrlParser: true,       
-    useUnifiedTopology: true,    
-    useCreateIndex: true        
-})
-.then(() => {
-    console.log('Successfully connected to MongoDB');
-})
-.catch((error) => {
-    console.error('Error connecting to MongoDB:', error);
-});
+app.use(passport.initialize()); 
+
+const url = process.env.MONGO_URI;
+const client = new MongoClient(url);
+client.connect();
+const db = client.db("data"); 
+const userCollection = db.collection("users"); 
 
 const upsertUser = async (userData) => {
     try {
-        // Check if user exists by Google ID or email
-        let user = await User.findOne({ email: userData.email });
+        const user = await userCollection.findOne({ email: userData.email });
 
         if (user) {
-            user.googleId = userData.id;  
-            user.name = userData.name;
-            await user.save();  
+            await userCollection.updateOne(
+                { email: userData.email },
+                { $set: { googleId: userData.id, name: userData.name } }
+            );
+            return { ...user, googleId: userData.id, name: userData.name }; 
         } else {
-            user = new User({
+            const newUser = {
                 googleId: userData.id,
                 name: userData.name,
-                email: userData.email
-            });
-            // Save new user to the database
-            await user.save();  
+                email: userData.email,
+            };
+            const result = await userCollection.insertOne(newUser);
+            return { ...newUser, _id: result.insertedId }; 
         }
-
-        return user;  // Return the user object
     } catch (error) {
         console.error('Error saving user to the database', error);
         throw error;
     }
 };
 
-const getToken = async (authCode) => {
-    const tokenResponse = await axios.post('https://oauth2.googleapis.com/token', {
-        code: authCode,
-        client_id: process.env.GOOGlE_CLIENT_ID,
-        client_secret: process.env.GOOGlE_CLIENT_SECRET,
-        grant_type: 'authorization_code',
-    });
-    return tokenResponse.data.access_token;
-};
-
-const getUserInfo = async (accessToken) => {
-    const userResponse = await axios.get('https://www.googleapis.com/oauth2/v2/userinfo', {
-        headers: {
-            Authorization: `Bearer ${accessToken}`,
+passport.use(
+    new GoogleStrategy(
+        {
+            clientID: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            callbackURL: "http://localhost:3000/api/success",
+            userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
+            scope: ["profile", "email"],
         },
+        async (accessToken, refreshToken, profile, cb) => {
+            console.log("Callback function reached");
+            console.log("Access Token:", accessToken);
+            console.log("Profile:", profile);
+            try {
+                const user = await upsertUser({
+                    id: profile.id,
+                    name: profile.displayName,
+                    email: profile.emails[0].value,
+                });
+                console.log("user:", user);
+                return cb(null, user);
+            } catch (error) {
+                return cb(error, null);
+            }
+        }
+    )
+);
+
+
+router.get(
+    "/success",
+    passport.authenticate("google", { session: false, failureRedirect: "/" }),
+    (req, res) => {
+        const user = req.user;
+
+        const token = jwt.sign(
+            { id: user._id, email: user.email },
+            process.env.JWT_SECRET,
+            { expiresIn: "1h" }
+        );
+
+        res.json({ message: "Login Successful", token });  
+    }
+);
+
+router.get(
+    "/OAuth",
+    passport.authenticate("google", {
+        scope: ["profile", "email"],
+        session: false,   
+    })
+);
+
+const authenticateJWT = (req, res, next) => {
+    const token = req.headers.authorization?.split(' ')[1];
+    
+    if (!token) return res.sendStatus(401);
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403);
+        req.user = user;  
+        next();
     });
-    return userResponse.data;
 };
 
-router.post("OAuth", (req, res) => {
-    const {authCode} = req.body;
-    
-    const accessToken = getToken(authCode);
-
-    const userData = getUserInfo(accessToken);
-
-    upsertUser(userData);
-})
-
-module.exports = router;
+export default router;
