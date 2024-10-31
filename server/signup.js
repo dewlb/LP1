@@ -2,6 +2,7 @@ import sendVerificationEmail from "./emailService";
 import {MongoClient, ObjectId} from "mongodb";
 import jwt from 'jsonwebtoken';
 
+
 //Update this with correct MongoDB URI
 const URL = '';
 const DATABASE = '';
