@@ -109,19 +109,13 @@ const verifyEmail = async (token) => {
     {
       throw new Error('Invalid or expired verification token');
     }
-  
-    await userCollection.updateOne(
-        { _id: user._id }, 
-        { $set: {verified: true} } 
-    );
-
-    user = await userCollection.findOne({
-        token: token,
-    });
-
-    console.log(user);
-  
-    return user;
+    else
+    {
+        await userCollection.updateOne(
+            { _id: user._id }, 
+            { $set: {verified: true} } 
+        );
+    }
 };
 
 
