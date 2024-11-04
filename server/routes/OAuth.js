@@ -95,7 +95,7 @@ router.get(
     '/OAuth',
     passport.authenticate('google', {
         scope: ['profile', 'email'],
-        session: false,   
+        session: false,
     })
 );
 
