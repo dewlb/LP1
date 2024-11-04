@@ -17,8 +17,8 @@ const router = express.Router();
 const url = process.env.MONGO_URI;
 const client = new MongoClient(url);
 client.connect();
-const db = client.db('data'); 
-const userCollection = db.collection('users'); 
+const db = client.db(process.env.DATABASE_NAME); 
+const userCollection = db.collection(process.env.COLLECTION); 
 
 //generate token for email veri
 const generateVerificationToken = () => {
@@ -35,7 +35,7 @@ const addUser = async (firstName, lastName, email, username, password) => {
         email: email,
         username: username,
         password: password,
-        verified: 'false',
+        verified: false,
         token: token,
         dateCreated: new Date()
     };
@@ -65,24 +65,20 @@ router.post('/register', async (req, res) => {
         if(user)
         {
             console.log('User with email or login already exists');
-            res.send(JSON.stringify({
+            res.status(409).json({
                 message: 'User with email or login already exists'
-            }));
+            });            
         } 
         else
         {
             const result = await addUser(firstName, lastName, email, username, password);
             console.log(result);
-            res.send(JSON.stringify({
-                message: 'Success, Email has been sent for verification.'
-            }));
+            res.status(200).json({message: 'Success, Email has been sent for verification.'});
         }
     } 
     catch(error) 
     {
-        res.send(JSON.stringify({
-            message: 'cannot connect to database'
-        }));
+        res.status(500).json({ message: 'Cannot connect to database' });
         console.log('Error connecting to database:', error);
     }
 });
@@ -109,19 +105,13 @@ const verifyEmail = async (token) => {
     {
       throw new Error('Invalid or expired verification token');
     }
-  
-    await userCollection.updateOne(
-        { _id: user._id }, 
-        { $set: {verified: true} } 
-    );
-
-    user = await userCollection.findOne({
-        token: token,
-    });
-
-    console.log(user);
-  
-    return user;
+    else
+    {
+        await userCollection.updateOne(
+            { _id: user._id }, 
+            { $set: {verified: true} } 
+        );
+    }
 };
 
 
