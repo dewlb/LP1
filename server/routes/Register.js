@@ -13,16 +13,19 @@ app.use(express.urlencoded({ extended: true }));
 
 const router = express.Router();
 
+//connect to database
 const url = process.env.MONGO_URI;
 const client = new MongoClient(url);
 client.connect();
 const db = client.db('data'); 
 const userCollection = db.collection('users'); 
 
+//generate token for email veri
 const generateVerificationToken = () => {
     return crypto.randomBytes(32).toString('hex');
   };
 
+//function to add user, defaults to unverified
 const addUser = async (firstName, lastName, email, username, password) => {
     const token = generateVerificationToken();
 
@@ -37,11 +40,12 @@ const addUser = async (firstName, lastName, email, username, password) => {
         dateCreated: new Date()
     };
 
+    //send email and then add to collection unverified
     await sendMail(
         email,
         'Verify Your Email',
         `Click the following link to verify your email: ${process.env.FRONTEND_URL}/api/verify/${token}`
-      );
+    );
 
     return await userCollection.insertOne(newUser);
 }
@@ -51,6 +55,7 @@ router.post('/register', async (req, res) => {
 
     try
     {
+        //find user and see if email or login is already taken
         const user = await userCollection.findOne({
             $or: [
                 { email: req.body.email },
@@ -83,11 +88,14 @@ router.post('/register', async (req, res) => {
 });
 
 router.get('/verify/:token', async (req, res) => {
-    try {
+    try 
+    {
       const { token } = req.params;
       await verifyEmail(token);
       res.status(200).json({ message: 'Email verified successfully' });
-    } catch (error) {
+    } 
+    catch (error) 
+    {
       res.status(400).json({ error: error.message });
     }
 });
@@ -97,7 +105,8 @@ const verifyEmail = async (token) => {
       token: token,
     });
   
-    if (!user) {
+    if (!user) 
+    {
       throw new Error('Invalid or expired verification token');
     }
   

@@ -15,7 +15,7 @@ const sendMail = async (to, subject, text) => {
           {
             From: {
               Email: 'snarsolutions@gmail.com',
-              Name: 'mark'
+              Name: 'Large Project Application'
             },
             To: [
               {
