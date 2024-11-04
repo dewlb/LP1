@@ -17,8 +17,8 @@ const router = express.Router();
 const url = process.env.MONGO_URI;
 const client = new MongoClient(url);
 client.connect();
-const db = client.db('process.env.DATABASE_NAME'); 
-const userCollection = db.collection('process.env.COLLECTION'); 
+const db = client.db(process.env.DATABASE_NAME); 
+const userCollection = db.collection(process.env.COLLECTION); 
 
 //generate token for email veri
 const generateVerificationToken = () => {
@@ -35,7 +35,7 @@ const addUser = async (firstName, lastName, email, username, password) => {
         email: email,
         username: username,
         password: password,
-        verified: 'false',
+        verified: false,
         token: token,
         dateCreated: new Date()
     };

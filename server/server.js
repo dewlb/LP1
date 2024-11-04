@@ -1,6 +1,6 @@
 import express from 'express';
-//import register from './routes/Register.js';
-import register from './routes/Login.js';
+import register from './routes/Register.js';
+import login from './routes/Login.js';
 
 const app = express();
 const port = 3000;
