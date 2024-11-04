@@ -65,24 +65,20 @@ router.post('/register', async (req, res) => {
         if(user)
         {
             console.log('User with email or login already exists');
-            res.send(JSON.stringify({
+            res.status(409).json({
                 message: 'User with email or login already exists'
-            }));
+            });            
         } 
         else
         {
             const result = await addUser(firstName, lastName, email, username, password);
             console.log(result);
-            res.send(JSON.stringify({
-                message: 'Success, Email has been sent for verification.'
-            }));
+            res.status(200).json({message: 'Success, Email has been sent for verification.'});
         }
     } 
     catch(error) 
     {
-        res.send(JSON.stringify({
-            message: 'cannot connect to database'
-        }));
+        res.status(500).json({ message: 'Cannot connect to database' });
         console.log('Error connecting to database:', error);
     }
 });
