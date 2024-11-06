@@ -1,19 +1,20 @@
 //you can get rid of this only exists to test login and register options 
 import React from "react";
+import PageTitle from '../components/PageTitle.tsx';
+import Login from '../components/Login.tsx';
 
-
-
-const Login = () => {
+const LoginPage = () => {
     const register = async () => {
         const response = await fetch("");
     }
 
     return(
         <div>
+            <PageTitle />
+            <Login />
             <button onClick={() => register()}>OAuth</button>
         </div>
     )
 }
-
 
 export default Login;
