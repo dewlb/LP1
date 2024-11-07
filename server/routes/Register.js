@@ -109,7 +109,10 @@ const verifyEmail = async (token) => {
     {
         await userCollection.updateOne(
             { _id: user._id }, 
-            { $set: {verified: true} } 
+            {
+                $set: {verified: true},
+                $unset: {token: ""}
+            }
         );
     }
 };

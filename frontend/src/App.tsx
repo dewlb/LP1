@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LoginPage from './pages/LoginPage.tsx';
 import './App.css'
@@ -6,10 +5,10 @@ import './App.css'
 function App() {
   return (
     <>
+      <h1>hello</h1>
       <Router>
         <Routes>
-          <LoginPage />
-          <Route path='/login' element={<Login />}/>
+          <Route path='/login' element={<LoginPage />}/>
         </Routes>
       </Router>
     </>
