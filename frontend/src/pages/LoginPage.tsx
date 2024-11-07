@@ -3,7 +3,8 @@
 const LoginPage = () => {
     return(
         <div>
-            <button>Login</button>
+            <PageTitle />
+            <Login />
         </div>
     )
 }
