@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LoginPage from './pages/LoginPage.tsx';
 import './App.css'
@@ -8,8 +7,7 @@ function App() {
     <>
       <Router>
         <Routes>
-          <LoginPage />
-          <Route path='/login' element={<Login />}/>
+          <Route path='/' element={<LoginPage/>}/>
         </Routes>
       </Router>
     </>

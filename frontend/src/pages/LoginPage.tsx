@@ -12,9 +12,8 @@ const LoginPage = () => {
         <div>
             <PageTitle />
             <Login />
-            <button onClick={() => register()}>OAuth</button>
         </div>
     )
 }
 
-export default Login;
+export default LoginPage;
