@@ -2,7 +2,7 @@ import express from 'express';
 import { MongoClient } from 'mongodb';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import sendMail from '../utils/sendMail';
+import sendMail from '../utils/sendMail.js';
 
 const app = express();
 app.use(bodyParser.json());
@@ -14,7 +14,7 @@ const router = express.Router();
 // set up MongoDB connection
 const url = process.env.MONGO_URI;
 const db_name = process.env.DATABASE_NAME;
-const collection_name = process.env.COLLECTION;
+const collection_name = process.env.USER_COLLECTION;
 
 const client = new MongoClient(url);
 await client.connect();

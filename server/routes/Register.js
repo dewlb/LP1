@@ -18,7 +18,7 @@ const url = process.env.MONGO_URI;
 const client = new MongoClient(url);
 client.connect();
 const db = client.db(process.env.DATABASE_NAME); 
-const userCollection = db.collection(process.env.COLLECTION); 
+const userCollection = db.collection(process.env.USER_COLLECTION); 
 
 //generate token for email veri
 const generateVerificationToken = () => {
