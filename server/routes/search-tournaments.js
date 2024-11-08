@@ -8,20 +8,25 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
-router.post('/readTournament', async (req, res) => {
-    const { name } = req.body;
+router.post('/searchTournaments', async (req, res) => {
+    const { name, page = 1, limit = 10 } = req.body;
+    const skip = (page - 1) * limit;
+    const regex = { name: { $regex: name, $options: 'i' } };
+
     const { collection, client } = await connectMongo('tournaments');
-    try 
+
+    try
     {
-        let tournament = await collection.findOne({
-            name: name,
-        });
-        if(tournament)
-            res.status(200).json(tournament);
-        else
-            res.status(404).json({ message: 'Tournament does not exist.'});
+        //lots of parameters for lazy loading 
+        const tournaments = await collection.find(regex, { projection: { name: 1 } })
+            .skip(skip)
+            .limit(limit)
+            .toArray();
+
+        res.status(200).json(tournaments);
     }
-    catch (error) {
+    catch(error)
+    {
         res.status(500).json({ message: 'Server error, Please try again later.' });
     }
     finally

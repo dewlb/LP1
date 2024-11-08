@@ -2,7 +2,7 @@ import express from 'express';
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-import sendMail from '../utils/sendMail.js';
+import sendMail from '../utils/send-mail.js';
 import crypto from 'crypto';
 import connectMongo from '../utils/connect-mongo.js';
 
@@ -65,6 +65,7 @@ router.post('/register', async (req, res) => {
         } 
         else
         {
+            //adds user to database and sends email
             const result = await addUser(collection, firstName, lastName, email, username, password);
             console.log(result);
             res.status(200).json({message: 'Success, Email has been sent for verification.'});
@@ -81,6 +82,7 @@ router.post('/register', async (req, res) => {
     }
 });
 
+//token is used for verification 
 router.get('/verify/:token', async (req, res) => {
     const { collection, client } = await connectMongo('users');
     try 
