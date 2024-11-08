@@ -2,8 +2,9 @@ import express from 'express';
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-import sendMail from '../utils/sendMail.js';
+import sendMail from '../utils/send-mail.js';
 import crypto from 'crypto';
+import connectMongo from '../utils/connect-mongo.js';
 
 dotenv.config();
 
@@ -11,14 +12,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
-const router = express.Router();
-
-//connect to database
-const url = process.env.MONGO_URI;
-const client = new MongoClient(url);
-client.connect();
-const db = client.db(process.env.DATABASE_NAME); 
-const userCollection = db.collection(process.env.USER_COLLECTION); 
+const router = express.Router(); 
 
 //generate token for email veri
 const generateVerificationToken = () => {
@@ -26,7 +20,7 @@ const generateVerificationToken = () => {
   };
 
 //function to add user, defaults to unverified
-const addUser = async (firstName, lastName, email, username, password) => {
+const addUser = async (collection, firstName, lastName, email, username, password) => {
     const token = generateVerificationToken();
 
     const newUser = {
@@ -47,16 +41,16 @@ const addUser = async (firstName, lastName, email, username, password) => {
         `Click the following link to verify your email: ${process.env.FRONTEND_URL}/api/verify/${token}`
     );
 
-    return await userCollection.insertOne(newUser);
+    return await collection.insertOne(newUser);
 }
 
 router.post('/register', async (req, res) => {
     const {firstName, lastName, email, username, password} = req.body;
-
+    const { collection, client } = await connectMongo('users');
     try
     {
         //find user and see if email or login is already taken
-        const user = await userCollection.findOne({
+        const user = await collection.findOne({
             $or: [
                 { email: req.body.email },
                 { username: req.body.username }
@@ -71,7 +65,8 @@ router.post('/register', async (req, res) => {
         } 
         else
         {
-            const result = await addUser(firstName, lastName, email, username, password);
+            //adds user to database and sends email
+            const result = await addUser(collection, firstName, lastName, email, username, password);
             console.log(result);
             res.status(200).json({message: 'Success, Email has been sent for verification.'});
         }
@@ -81,33 +76,43 @@ router.post('/register', async (req, res) => {
         res.status(500).json({ message: 'Cannot connect to database' });
         console.log('Error connecting to database:', error);
     }
-});
-
-router.get('/verify/:token', async (req, res) => {
-    try 
+    finally
     {
-      const { token } = req.params;
-      await verifyEmail(token);
-      res.status(200).json({ message: 'Email verified successfully' });
-    } 
-    catch (error) 
-    {
-      res.status(400).json({ error: error.message });
+        client.close();
     }
 });
 
-const verifyEmail = async (token) => {
-    let user = await userCollection.findOne({
-      token: token,
+//token is used for verification 
+router.get('/verify/:token', async (req, res) => {
+    const { collection, client } = await connectMongo('users');
+    try 
+    {
+        const { token } = req.params;
+        await verifyEmail(collection, token);
+        res.status(200).json({ message: 'Email verified successfully' });
+    } 
+    catch (error) 
+    {
+        res.status(400).json({ error: error.message });
+    }
+    finally
+    {
+        client.close();
+    }
+});
+
+const verifyEmail = async (collection, token) => {
+    let user = await collection.findOne({
+        token: token,
     });
   
     if (!user) 
     {
-      throw new Error('Invalid or expired verification token');
+        throw new Error('Invalid or expired verification token');
     }
     else
     {
-        await userCollection.updateOne(
+        await collection.updateOne(
             { _id: user._id }, 
             {
                 $set: {verified: true},

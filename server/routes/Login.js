@@ -2,7 +2,7 @@ import express from 'express';
 import { MongoClient } from 'mongodb';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import sendMail from '../utils/sendMail.js';
+import sendMail from '../utils/send-mail.js';
 
 const app = express();
 app.use(bodyParser.json());
