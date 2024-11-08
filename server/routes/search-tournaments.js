@@ -23,7 +23,15 @@ router.post('/searchTournaments', async (req, res) => {
             .limit(limit)
             .toArray();
 
-        res.status(200).json(tournaments);
+        const totalCount = await collection.countDocuments(regex);
+        const pageTotal = Math.ceil(totalCount / limit);
+
+        const response = {
+            tournaments: tournaments,
+            pageTotal: pageTotal
+        };
+
+        res.status(200).json(response);
     }
     catch(error)
     {
