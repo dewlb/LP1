@@ -1,5 +1,5 @@
 import express from 'express';
-import { MongoClient } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
@@ -20,37 +20,32 @@ await client.connect();
 const db = client.db(db_name);
 const tournament_Collection = db.collection(collection_name);
 
-// createTournament endpoint
-router.post('/createTournament', async(req, res) => {
-    const {name, userID, size} = req.body;
-    const inputTournament = {
-        name: name,
-        owner: userID,
-        max_size: size,
-        current_size: 0,
-        participants: []
-    }
+// deleteTournament endpoint
+router.post('/deleteTournament', async(req, res) => {
+
+    const {tournamentID} = req.body;
+    console.log(tournamentID);
+    //const id = tournamentID.tournamentID;   //extract the tournament ID field  (no longer needed)
 
     try{
-        const tournament = await tournament_Collection.findOne({name: name});
+        const tournament = await tournament_Collection.findOne({_id: ObjectId.createFromHexString(tournamentID)});
 
         if(tournament){
-            res.status(409).json({message: "Tournament with this name already exists"});
+            await tournament_Collection.deleteOne(tournament);
+            res.status(200).json({message: "Tournament succesfully deleted"});
         }
         else{
-            await tournament_Collection.insertOne(inputTournament);
-            res.status(200).json({message: "Tournament created succesfully", info: inputTournament});
+            res.status(409).json({message: "No such tournament found"});
         }
     }
     catch(error){
-        console.message("Error creating tournament: ", error);
-        res.status(401).json({message: "Unable to create tournament"});
+        console.log("Error deleting tournament: ", error);
+        res.status(401).json({message: "Error deleting tournament"});
     }
     finally{
         await client.close();
         console.log("MongoDB connection closed");
     }
-
 });
 
 export default router;

@@ -48,6 +48,10 @@ router.post('/login', async(req, res) => {
         console.error("Error logging in:", error);
         res.status(500).json({message: "Internal server error"});
     }
+    finally{
+        await client.close();
+        console.log("MongoDB connection closed");
+    }
 
 });
 
