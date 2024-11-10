@@ -16,28 +16,24 @@ router.post('/searchTournaments', async (req, res) => {
 
     try
     {
-        let tournaments;
-        let totalCount;
-        if(name)
+        let filter = {};
+
+        if (name && name.trim() !== '') 
         {
-            const regex = { name: { $regex: name, $options: 'i' } };
-            tournaments = await collection.find(regex, { projection: { name: 1 } })
-                .skip(skip)
-                .limit(limit)
-                .toArray();
-            totalCount = await collection.countDocuments(regex);
-        }
-        else
+            filter.name = { $regex: name, $options: 'i' };
+        } 
+        else if (userId) 
         {
-            console.log(userId)
-            tournaments = await collection.find( { owner : userId }, { projection: { name: 1 } } )
-                .skip(skip)
-                .limit(limit)
-                .toArray();
-            totalCount = await collection.countDocuments({ owner: userId });
+            filter.owner = userId;
         }
 
+        const tournaments = await collection.find(filter, { projection: { name: 1 } })
+            .skip(skip)
+            .limit(limit)
+            .toArray();
         
+        const totalCount = await collection.countDocuments(filter);
+
         const pageTotal = Math.ceil(totalCount / limit);
 
         const response = {

@@ -89,7 +89,20 @@ router.get('/verify/:token', async (req, res) => {
     {
         const { token } = req.params;
         await verifyEmail(collection, token);
-        res.status(200).json({ message: 'Email verified successfully' });
+        res.send(`
+            <div style="
+                background-color: #001f3f; 
+                color: #ffffff; 
+                padding: 20px;
+                border-radius: 8px;
+                font-family: Arial, sans-serif;
+                text-align: center;
+                max-width: 400px;
+                margin: 50px auto;
+            ">
+                <h1 style="margin: 0;">Email verified successfully</h1>
+            </div>
+        `);
     } 
     catch (error) 
     {
