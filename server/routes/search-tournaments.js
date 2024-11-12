@@ -1,12 +1,7 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import connectMongo from '../utils/connect-mongo.js';
 
 const router = express.Router();
-
-const app = express();
-app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: true }));
 
 router.post('/searchTournaments', async (req, res) => {
     const { name = null, userId = null, page = 1, limit = 10 } = req.body;

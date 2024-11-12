@@ -9,7 +9,9 @@ import updateTournament from './routes/UpdateTournament.js'
 const app = express();
 const port = 3000;
 
-app.use(express.json());
+//parse json for object format for request
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 app.use("/api", register);
 app.use("/api", login);

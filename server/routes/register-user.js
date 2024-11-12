@@ -1,16 +1,11 @@
 import express from 'express';
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
-import bodyParser from 'body-parser';
 import sendMail from '../utils/send-mail.js';
 import crypto from 'crypto';
 import connectMongo from '../utils/connect-mongo.js';
 
 dotenv.config();
-
-const app = express();
-app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: true }));
 
 const router = express.Router(); 
 
