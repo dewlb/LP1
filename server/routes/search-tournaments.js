@@ -1,10 +1,11 @@
 import express from 'express';
 import connectMongo from '../utils/connect-mongo.js';
+import { ObjectId } from 'mongodb';
 
 const router = express.Router();
 
 router.get('/searchTournaments', async (req, res) => {
-    const { name = null, userId = null, page = 1, limit = 10 } = req.body;
+    const { objectId = null, name = null, userId = null, page = 1, limit = 10 } = req.body;
     const skip = (page - 1) * limit;
 
     const { collection, client } = await connectMongo('tournaments');
@@ -20,6 +21,10 @@ router.get('/searchTournaments', async (req, res) => {
         else if (userId) 
         {
             filter.owner = userId;
+        }
+        else if(objectId)
+        {
+            filter._id = ObjectId.createFromHexString(objectId);
         }
 
         const tournaments = await collection.find(filter)

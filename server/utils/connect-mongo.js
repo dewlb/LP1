@@ -15,6 +15,11 @@ const connectMongo = async (collectionName) => {
             collection = db.collection(process.env.TOURNAMENT_COLLECTION);
         else if (collectionName === 'users')
             collection = db.collection(process.env.USER_COLLECTION);
+        else if (collectionName === 'both')
+            return { u_collection: db.collection(process.env.USER_COLLECTION), 
+                    t_collection: db.collection(process.env.TOURNAMENT_COLLECTION),
+                    client
+                };
         
         return { collection, client };
     } 
