@@ -1,10 +1,10 @@
 import express from 'express';
 import register from './routes/register-user.js';
-import login from './routes/Login.js';
+import login from './routes/login.js';
 import readTournament from './routes/read-tournament.js'
-import createTournament from './routes/CreateTournament.js'
+import createTournament from './routes/create-tournament.js'
 import searchTournaments from './routes/search-tournaments.js'
-import updateTournament from './routes/UpdateTournament.js'
+import updateTournament from './routes/update-tournament.js'
 
 const app = express();
 const port = 3000;
