@@ -1,5 +1,4 @@
 import express from 'express';
-import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 import sendMail from '../utils/send-mail.js';
 import crypto from 'crypto';
@@ -12,7 +11,7 @@ const router = express.Router();
 //generate token for email veri
 const generateVerificationToken = () => {
     return crypto.randomBytes(32).toString('hex');
-  };
+};
 
 //function to add user, defaults to unverified
 const addUser = async (collection, firstName, lastName, email, username, password) => {
@@ -24,6 +23,7 @@ const addUser = async (collection, firstName, lastName, email, username, passwor
         email: email,
         username: username,
         password: password,
+        tournaments: [],
         verified: false,
         token: token,
         dateCreated: new Date()

@@ -1,5 +1,6 @@
 import express from 'express';
 import sendMail from '../utils/send-mail.js';
+import connectMongo from '../utils/connect-mongo.js';
 
 const router = express.Router();
 
