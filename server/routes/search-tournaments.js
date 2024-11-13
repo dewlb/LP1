@@ -3,7 +3,7 @@ import connectMongo from '../utils/connect-mongo.js';
 
 const router = express.Router();
 
-router.post('/searchTournaments', async (req, res) => {
+router.get('/searchTournaments', async (req, res) => {
     const { name = null, userId = null, page = 1, limit = 10 } = req.body;
     const skip = (page - 1) * limit;
 
@@ -22,7 +22,7 @@ router.post('/searchTournaments', async (req, res) => {
             filter.owner = userId;
         }
 
-        const tournaments = await collection.find(filter, { projection: { name: 1 } })
+        const tournaments = await collection.find(filter)
             .skip(skip)
             .limit(limit)
             .toArray();
