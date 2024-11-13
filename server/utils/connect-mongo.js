@@ -17,7 +17,9 @@ const connectMongo = async (collectionName) => {
             collection = db.collection(process.env.USER_COLLECTION);
         
         return { collection, client };
-    } catch (error) {
+    } 
+    catch (error) 
+    {
         console.error('Error connecting to MongoDB:', error);
         throw error;
     } 

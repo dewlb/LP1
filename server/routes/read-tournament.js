@@ -1,17 +1,18 @@
 import express from 'express';
 import connectMongo from '../utils/connect-mongo.js';
+import { ObjectId } from 'mongodb';
 
 const router = express.Router();
 
 router.post('/readTournament', async (req, res) => {
-    const { name } = req.body;
+    const { id } = req.body;
     const { collection, client } = await connectMongo('tournaments');
     
     //basic search and return 
     try 
     {
         let tournament = await collection.findOne({
-            name: name,
+            _id: ObjectId.createFromHexString(id),
         });
         if(tournament)
             res.status(200).json({
