@@ -14,12 +14,15 @@ router.post('/readTournament', async (req, res) => {
             name: name,
         });
         if(tournament)
-            res.status(200).json(tournament);
+            res.status(200).json({
+            tournament: tournament,
+            error: ''
+            });
         else
-            res.status(404).json({ message: 'Tournament does not exist.'});
+            res.status(404).json({ error: 'Tournament does not exist.'});
     }
     catch (error) {
-        res.status(500).json({ message: 'Server error, Please try again later.' });
+        res.status(500).json({ error: 'Server error, Please try again later.' });
     }
     finally
     {

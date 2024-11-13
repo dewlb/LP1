@@ -55,7 +55,7 @@ router.post('/register', async (req, res) => {
         {
             console.log('User with email or login already exists');
             res.status(409).json({
-                message: 'User with email or login already exists'
+                error: 'User with email or login already exists'
             });            
         } 
         else
@@ -63,12 +63,15 @@ router.post('/register', async (req, res) => {
             //adds user to database and sends email
             const result = await addUser(collection, firstName, lastName, email, username, password);
             console.log(result);
-            res.status(200).json({message: 'Success, Email has been sent for verification.'});
+            res.status(200).json({
+                message: 'Success, Email has been sent for verification.',
+                error: ''
+            });
         }
     } 
     catch(error) 
     {
-        res.status(500).json({ message: 'Cannot connect to database' });
+        res.status(500).json({ error: 'Cannot connect to database' });
         console.log('Error connecting to database:', error);
     }
     finally
