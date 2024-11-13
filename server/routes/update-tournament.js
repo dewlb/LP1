@@ -1,6 +1,6 @@
 import express from 'express';
 import { ObjectId } from 'mongodb';
-import connectMongo from '../utils/connect-mongo';
+import connectMongo from '../utils/connect-mongo.js';
 
 const router = express.Router();
 
@@ -8,8 +8,10 @@ const router = express.Router();
 router.post('/updateTournament', async(req, res) => {
 
     // mongodb connection
-    const {t_collection, client} = await connectMongo('tournaments');
-    const {u_collection, client2} = await connectMongo('users');
+    const {u_collection, t_collection, client} = await connectMongo('both');
+
+    console.log(client);
+    console.log(u_collection);
     
     //change this so that max_size cant be changed
     const {name, max_size, current_size, participants, tournamentID, addUser = null, deleteUser = null} = req.body;
@@ -48,7 +50,6 @@ router.post('/updateTournament', async(req, res) => {
     }
     finally{
         await client.close();
-        await client2.close();
         console.log("MongoDB connection closed");
     }
 });
