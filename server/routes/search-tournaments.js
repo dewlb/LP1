@@ -33,7 +33,8 @@ router.post('/searchTournaments', async (req, res) => {
 
         const response = {
             tournaments: tournaments,
-            pageTotal: pageTotal
+            pageTotal: pageTotal,
+            error: ''
         };
 
         res.status(200).json(response);
@@ -41,7 +42,7 @@ router.post('/searchTournaments', async (req, res) => {
     catch(error)
     {
         console.log('Error', error);
-        res.status(500).json({ message: 'Server error, Please try again later.' });
+        res.status(500).json({ error: 'Server error, Please try again later.' });
     }
     finally
     {
