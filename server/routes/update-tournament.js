@@ -1,5 +1,6 @@
 import express from 'express';
 import { ObjectId } from 'mongodb';
+import connectMongo from '../utils/connect-mongo';
 
 const router = express.Router();
 
@@ -7,9 +8,10 @@ const router = express.Router();
 router.post('/updateTournament', async(req, res) => {
 
     // mongodb connection
-    const {collection, client} = await connectMongo('tournaments');
+    const {t_collection, client} = await connectMongo('tournaments');
+    const {u_collection, client2} = await connectMongo('users');
     
-    //change this so that max_size cant be changed              <------- L O O K
+    //change this so that max_size cant be changed
     const {name, max_size, current_size, participants, tournamentID, addUser = null, deleteUser = null} = req.body;
 
     const inputTournament = {
@@ -22,19 +24,21 @@ router.post('/updateTournament', async(req, res) => {
 
     try{
 
-        if(addUser)     //if addUser is NOT null, a user is being added         <--------- L O O K
-        {
-            // add this tournament to the user's list of tournaments
-        }
-        if(deleteUser)      //if deleteUser is NOT null, a user is being deleted
-        {
-            // delete this tournmanet from the user's list of tournaments
-        }
-
         // create updatedTournament object with same values as inputTournament except tournamentID so object id is not changed
         const { tournamentID, ...updatedTournament } = inputTournament;
 
-        await collection.updateOne( {_id: ObjectId.createFromHexString(tournamentID)}, {$set: updatedTournament} );
+        await t_collection.updateOne( {_id: ObjectId.createFromHexString(tournamentID)}, {$set: updatedTournament} );
+
+        if(addUser)     //if addUser is NOT null, a user is being added
+        {
+            // add tournament to user's list of tournaments
+            await u_collection.updateOne({_id: ObjectId.createFromHexString(addUser)}, {$push: {tournaments: tournamentID}});
+        }
+        if(deleteUser)      //if deleteUser is NOT null, a user is being deleted
+        {
+            // delete tournament from user's list of tournaments
+            await u_collection.updateOne({_id: ObjectId.createFromHexString(deleteUser)}, {$pull: {tournaments: tournamentID}});
+        }
 
         res.status(200).json({message: "Tournament updated succesfully"});
     }
@@ -44,6 +48,7 @@ router.post('/updateTournament', async(req, res) => {
     }
     finally{
         await client.close();
+        await client2.close();
         console.log("MongoDB connection closed");
     }
 });
