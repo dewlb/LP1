@@ -7,27 +7,27 @@ const connectMongo = async (collectionName) => {
     const client = new MongoClient(url);
 
     try {
-        await client.connect();  
+        await client.connect();
         const db = client.db(process.env.DATABASE_NAME);
-        
+
         let collection;
         if (collectionName === 'tournaments')
             collection = db.collection(process.env.TOURNAMENT_COLLECTION);
         else if (collectionName === 'users')
             collection = db.collection(process.env.USER_COLLECTION);
         else if (collectionName === 'both')
-            return { u_collection: db.collection(process.env.USER_COLLECTION), 
-                    t_collection: db.collection(process.env.TOURNAMENT_COLLECTION),
-                    client
-                };
-        
+            return {
+                u_collection: db.collection(process.env.USER_COLLECTION),
+                t_collection: db.collection(process.env.TOURNAMENT_COLLECTION),
+                client
+            };
+
         return { collection, client };
-    } 
-    catch (error) 
-    {
+    }
+    catch (error) {
         console.error('Error connecting to MongoDB:', error);
         throw error;
-    } 
+    }
 };
 
 export default connectMongo;

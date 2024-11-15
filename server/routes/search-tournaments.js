@@ -4,7 +4,8 @@ import { ObjectId } from 'mongodb';
 
 const router = express.Router();
 
-router.get('/searchTournaments', async (req, res) => {
+router.get('/searchTournaments', async (req, res) =>
+{
     const { objectId = null, name = null, userId = null, page = 1, limit = 10 } = req.body;
     const skip = (page - 1) * limit;
 
@@ -17,12 +18,12 @@ router.get('/searchTournaments', async (req, res) => {
         if (name && name.trim() !== '') 
         {
             filter.name = { $regex: name, $options: 'i' };
-        } 
+        }
         else if (userId) 
         {
             filter.owner = userId;
         }
-        else if(objectId)
+        else if (objectId)
         {
             filter._id = ObjectId.createFromHexString(objectId);
         }
@@ -31,7 +32,7 @@ router.get('/searchTournaments', async (req, res) => {
             .skip(skip)
             .limit(limit)
             .toArray();
-        
+
         const totalCount = await collection.countDocuments(filter);
 
         const pageTotal = Math.ceil(totalCount / limit);
@@ -44,7 +45,7 @@ router.get('/searchTournaments', async (req, res) => {
 
         res.status(200).json(response);
     }
-    catch(error)
+    catch (error)
     {
         console.log('Error', error);
         res.status(500).json({ error: 'Server error, Please try again later.' });

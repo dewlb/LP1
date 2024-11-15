@@ -8,32 +8,35 @@ const mailjet = new Mailjet({
   apiSecret: process.env.MAILJET_SECRET_KEY
 });
 
-const sendMail = async (to, subject, text) => {
-    try {
-      const result = await mailjet.post('send', { version: 'v3.1' }).request({
-        Messages: [
-          {
-            From: {
-              Email: 'snarsolutions@gmail.com',
-              Name: 'Large Project Application'
-            },
-            To: [
-              {
-                Email: to
-              }
-            ],
-            Subject: subject,
-            TextPart: text
-          }
-        ]
-      });
+const sendMail = async (to, subject, text) =>
+{
+  try
+  {
+    const result = await mailjet.post('send', { version: 'v3.1' }).request({
+      Messages: [
+        {
+          From: {
+            Email: 'snarsolutions@gmail.com',
+            Name: 'Large Project Application'
+          },
+          To: [
+            {
+              Email: to
+            }
+          ],
+          Subject: subject,
+          TextPart: text
+        }
+      ]
+    });
 
-      console.log('Success sending email');
-      return { success: true, data: result.body };
-    } catch (error) {
-      console.error('Email sending failed:', error.message);
-      throw new Error('Failed to send email');
-    }
+    console.log('Success sending email');
+    return { success: true, data: result.body };
+  } catch (error)
+  {
+    console.error('Email sending failed:', error.message);
+    throw new Error('Failed to send email');
+  }
 };
 
 export default sendMail;

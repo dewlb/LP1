@@ -6,15 +6,17 @@ import connectMongo from '../utils/connect-mongo.js';
 
 dotenv.config();
 
-const router = express.Router(); 
+const router = express.Router();
 
 //generate token for email veri
-const generateVerificationToken = () => {
+const generateVerificationToken = () =>
+{
     return crypto.randomBytes(32).toString('hex');
 };
 
 //function to add user, defaults to unverified
-const addUser = async (collection, firstName, lastName, email, username, password) => {
+const addUser = async (collection, firstName, lastName, email, username, password) =>
+{
     const token = generateVerificationToken();
 
     const newUser = {
@@ -39,8 +41,9 @@ const addUser = async (collection, firstName, lastName, email, username, passwor
     return await collection.insertOne(newUser);
 }
 
-router.post('/register', async (req, res) => {
-    const {firstName, lastName, email, username, password} = req.body;
+router.post('/register', async (req, res) =>
+{
+    const { firstName, lastName, email, username, password } = req.body;
     const { collection, client } = await connectMongo('users');
     try
     {
@@ -51,13 +54,13 @@ router.post('/register', async (req, res) => {
                 { username: req.body.username }
             ]
         });
-        if(user)
+        if (user)
         {
             console.log('User with email or login already exists');
             res.status(409).json({
                 error: 'User with email or login already exists'
-            });            
-        } 
+            });
+        }
         else
         {
             //adds user to database and sends email
@@ -68,8 +71,8 @@ router.post('/register', async (req, res) => {
                 error: ''
             });
         }
-    } 
-    catch(error) 
+    }
+    catch (error) 
     {
         res.status(500).json({ error: 'Cannot connect to database' });
         console.log('Error connecting to database:', error);
@@ -81,7 +84,8 @@ router.post('/register', async (req, res) => {
 });
 
 //token is used for verification 
-router.get('/verify/:token', async (req, res) => {
+router.get('/verify/:token', async (req, res) =>
+{
     const { collection, client } = await connectMongo('users');
     try 
     {
@@ -101,7 +105,7 @@ router.get('/verify/:token', async (req, res) => {
                 <h1 style="margin: 0;">Email verified successfully</h1>
             </div>
         `);
-    } 
+    }
     catch (error) 
     {
         res.status(400).json({ error: error.message });
@@ -112,11 +116,12 @@ router.get('/verify/:token', async (req, res) => {
     }
 });
 
-const verifyEmail = async (collection, token) => {
+const verifyEmail = async (collection, token) =>
+{
     let user = await collection.findOne({
         token: token,
     });
-  
+
     if (!user) 
     {
         throw new Error('Invalid or expired verification token');
@@ -124,10 +129,10 @@ const verifyEmail = async (collection, token) => {
     else
     {
         await collection.updateOne(
-            { _id: user._id }, 
+            { _id: user._id },
             {
-                $set: {verified: true},
-                $unset: {token: ""}
+                $set: { verified: true },
+                $unset: { token: "" }
             }
         );
     }
