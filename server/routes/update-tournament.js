@@ -14,7 +14,7 @@ router.post('/updateTournament', async(req, res) => {
     console.log(u_collection);
     
     //change this so that max_size cant be changed
-    const {name, current_size, participants, tournamentID, addUser = null, deleteUser = null} = req.body;
+    const {name, max_size, current_size, participants, tournamentID, addUser = null, deleteUser = null} = req.body;
 
     const inputTournament = {
         name: name,         // account for duplicate names                  <-------- L O O K
@@ -42,7 +42,7 @@ router.post('/updateTournament', async(req, res) => {
             await u_collection.updateOne({_id: ObjectId.createFromHexString(deleteUser)}, {$pull: {tournaments: tournamentID}});
         }
 
-        res.status(200).json({message: "Tournament updated successfully", error: ""});
+        res.status(200).json({message: "Tournament updated successfully"});
     }
     catch(error){
         console.log("Error updating tournament: ", error);
