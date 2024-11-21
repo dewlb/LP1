@@ -21,12 +21,15 @@ function RegisterPage() {
         const [email, setEmail] = useState("");
         const [username, setuserName] = useState("");
         const [password, setPassword] = useState("");
+        const [message, setMessage] = useState('');
 
         async function signUp()
         {
             let newUser = {firstName, lastName, email, username, password};
             console.warn(newUser);
 
+            try
+            {
             let result = await fetch("http://cop4331-team14.xyz:3000/api/register", {
                 method: 'POST',
                 body: JSON.stringify(newUser),
@@ -37,10 +40,27 @@ function RegisterPage() {
                 }
             } ) 
             
+
+            if(result.status == 409)
+            {
+                setMessage('User with email or username already exists.')
+            }
+
+            else
+            {
+                setMessage('Registration successful. Please check email for verification.');
+            }
+
             result = await result.json();
             console.warn("result", result);
             localStorage.setItem("user-info", JSON.stringify(newUser));
-            history.pushState(URL, "/login"); //not sure here
+            
+
+            }//try ends here
+            catch (error) {
+                console.error("Error:", error);
+                setMessage('Failed to connect to the server. Please try again later.');
+            }
         }
 
     return(
@@ -66,6 +86,7 @@ function RegisterPage() {
                 </div>
             </form>
             <button onClick={signUp} type='submit'>Register</button>
+            <span id="registerResult">{message}</span> 
             <div className="register-link">
                 <p>Already have an account? <Link to="/login">Login now!</Link></p>
             </div>

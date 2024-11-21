@@ -6,6 +6,11 @@
     align-items: center;
 }
 
+#registerResult{
+    color: rgb(214, 51, 51);
+    padding-left: 65px; /*idk how to center here so added padding lol*/
+}
+
 .wrapper{
     width: 420px;
     background: transparent;
