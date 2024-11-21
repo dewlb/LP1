@@ -1,3 +1,4 @@
+/*
 function PageTitle()
 {
   return(
@@ -5,4 +6,4 @@ function PageTitle()
   );
 };
 
-export default PageTitle;
+export default PageTitle; */
