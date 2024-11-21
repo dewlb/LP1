@@ -4,13 +4,44 @@
 //import Register from '../components/Register.tsx';
 import './RegisterPage.css';
 import { Link } from 'react-router-dom';
+import {useState} from 'react';
+
+//FOR REFERENCE! I used a different approach here to connect the API + front end. Not 100% about this one,
+//but I'm more certain about the LoginPage's since that one is just a copy and paste from Leinecker.
+//So as long as one of them works, I can just use that approach.
 
 
-
-const RegisterPage = () => {
+function RegisterPage() {
     /*const register = async () => {
         const response = await fetch("");
     } */
+
+        const [firstName, setfirstName] = useState("");
+        const [lastName, setlastName] = useState("");
+        const [email, setEmail] = useState("");
+        const [username, setuserName] = useState("");
+        const [password, setPassword] = useState("");
+
+        async function signUp()
+        {
+            let newUser = {firstName, lastName, email, username, password};
+            console.warn(newUser);
+
+            let result = await fetch("http://cop4331-team14.xyz:3000/api/register", {
+                method: 'POST',
+                body: JSON.stringify(newUser),
+                headers: {
+                    "Content-Type" : 'application/json',
+                    //"Access-Control-Allow-Origin" : 'application/json',
+                    "Accept": 'application/json'
+                }
+            } ) 
+            
+            result = await result.json();
+            console.warn("result", result);
+            localStorage.setItem("user-info", JSON.stringify(newUser));
+            history.pushState(URL, "/login"); //not sure here
+        }
 
     return(
         <>
@@ -19,22 +50,22 @@ const RegisterPage = () => {
             <form action = "">
                 <h1>Register</h1>
                 <div className="input-box">
-                    <input type="text" placeholder='First Name' required/>                  
+                    <input type="text" value={firstName} onChange={(e)=>setfirstName(e.target.value)} placeholder='First Name' required/>                  
                 </div>
                 <div className = "input-box">
-                    <input type="text" placeholder='Last Name' required/>
+                    <input type="text" value={lastName} onChange={(e)=>setlastName(e.target.value)} placeholder='Last Name' required/>
                 </div>
                 <div className="input-box">
-                    <input type="text" placeholder='your@email.com' required/>  
+                    <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder='your@email.com' required/>  
                 </div>
                 <div className="input-box">
-                    <input type="text" placeholder='Username' required/>  
+                    <input type="text" value={username} onChange={(e)=>setuserName(e.target.value)} placeholder='Username' required/>  
                 </div>
                 <div className="input-box">
-                    <input type="password" placeholder='Password' required/>                  
+                    <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder='Password' required/>                  
                 </div>
             </form>
-            <button type='submit'>Register</button>
+            <button onClick={signUp} type='submit'>Register</button>
             <div className="register-link">
                 <p>Already have an account? <Link to="/login">Login now!</Link></p>
             </div>
