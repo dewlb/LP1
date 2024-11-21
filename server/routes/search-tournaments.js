@@ -4,7 +4,7 @@ import { ObjectId } from 'mongodb';
 
 const router = express.Router();
 
-router.get('/searchTournaments', async (req, res) =>
+router.post('/searchTournaments', async (req, res) =>
 {
     const { objectId = null, name = null, userId = null, page = 1, limit = 10 } = req.body;
     const skip = (page - 1) * limit;
@@ -19,11 +19,11 @@ router.get('/searchTournaments', async (req, res) =>
         {
             filter.name = { $regex: name, $options: 'i' };
         }
-        else if (userId) 
+        if (userId) 
         {
             filter.owner = userId;
         }
-        else if (objectId)
+        if (objectId)
         {
             filter._id = ObjectId.createFromHexString(objectId);
         }
@@ -40,7 +40,6 @@ router.get('/searchTournaments', async (req, res) =>
         const response = {
             tournaments: tournaments,
             pageTotal: pageTotal,
-            error: ''
         };
 
         res.status(200).json(response);

@@ -67,8 +67,7 @@ router.post('/register', async (req, res) =>
             const result = await addUser(collection, firstName, lastName, email, username, password);
             console.log(result);
             res.status(200).json({
-                message: 'Success, Email has been sent for verification.',
-                error: ''
+                message: 'Success, Email has been sent for verification.'
             });
         }
     }

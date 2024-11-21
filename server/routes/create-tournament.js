@@ -1,4 +1,5 @@
 import express from 'express';
+import connectMongo from '../utils/connect-mongo';
 
 const router = express.Router(); 
 
@@ -27,7 +28,7 @@ router.post('/createTournament', async(req, res) => {
         }
         else{
             await collection.insertOne(inputTournament);
-            res.status(200).json({message: "Tournament created succesfully", info: inputTournament, error: ""});
+            res.status(200).json({message: "Tournament created succesfully", info: inputTournament});
         }
     }
     catch(error){

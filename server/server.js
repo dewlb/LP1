@@ -1,9 +1,10 @@
 import express from 'express';
 import register from './routes/register-user.js';
-import login from './routes/login.js';
+import login from './routes/login-user.js';
 import createTournament from './routes/create-tournament.js'
 import searchTournaments from './routes/search-tournaments.js'
 import updateTournament from './routes/update-tournament.js'
+import deleteTournament from './routes/delete-tournament.js'
 
 const app = express();
 const port = 3000;
@@ -17,6 +18,7 @@ app.use("/api", login);
 app.use("/api", searchTournaments);
 app.use("/api", createTournament);
 app.use("/api", updateTournament);
+app.use("/api", deleteTournament);
 
 app.get("/", (req, res) => {
     res.send("server is running");

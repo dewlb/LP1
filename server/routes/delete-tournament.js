@@ -18,7 +18,7 @@ router.post('/deleteTournament', async(req, res) => {
 
         if(tournament){
             await collection.deleteOne(tournament);
-            res.status(200).json({message: "Tournament succesfully deleted", error: ""});
+            res.status(200).json({message: "Tournament succesfully deleted"});
         }
         else{
             res.status(409).json({error: "No such tournament found"});

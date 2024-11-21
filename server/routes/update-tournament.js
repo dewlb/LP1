@@ -46,7 +46,7 @@ router.post('/updateTournament', async(req, res) => {
     }
     catch(error){
         console.log("Error updating tournament: ", error);
-        res.status(401).json({message: "Error updating tournament"});
+        res.status(401).json({error: "Error updating tournament"});
     }
     finally{
         await client.close();
