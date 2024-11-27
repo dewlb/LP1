@@ -1,0 +1,33 @@
+h1 {
+  text-align: center; /* Centers text horizontally */
+  margin-top: -10px; /* Adds some spacing from the top of the page */
+}
+h2 {
+  text-align: absolute; /* Centers text horizontally */
+  margin-top: 40px; /* Adds some spacing from the top of the page */
+}
+
+.wrapper {
+  width: 420px;
+  background: transparent;
+  color: #ffffff;
+  backdrop-filter: blur(30px);
+  border: 1px solid #b9b9ce;
+  border-radius: 10px;
+  padding: 30px 40px;
+  margin-top: 20px;
+}
+
+.delete-account-button {
+  background-color: #e61d1f;
+  color: black;
+  padding: 15px 70px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: background-color 0.3s, transform 0.2s;
+  border: none;
+  position: center;
+  text-decoration: none;
+}

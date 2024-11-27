@@ -1,0 +1,155 @@
+h1 {
+  position: absolute; /* Allows free positioning */
+  top: 35px; /* Adjust as needed */
+  left: 50%; /* Centers horizontally */
+  transform: translateX(-50%); /* Centers based on the element width */
+  margin: 0; /* Remove unnecessary margin */
+  color: #ffffff; /* Ensure contrast with the background */
+}
+
+h2 {
+  text-align: center; /* Centers text horizontally */
+  margin-top: 40px; /* Adds some spacing from the top of the page */
+}
+
+.Main-Actions {
+  text-align: center; /* Centers text horizontally */
+  margin-top: 80px; /* Adds some spacing from the top of the page */
+}
+
+.Personal-Actions {
+  text-align: center; /* Centers text horizontally */
+  margin-top: 30px; /* Adds some spacing from the top of the page */
+}
+.Tournament-History {
+  text-align: center; /* Centers text horizontally */
+  margin-top: 30px; /* Adds some spacing from the top of the page */
+}
+
+.Main-Actions {
+  width: 420px;
+  background: transparent;
+  color: #ffffff;
+  backdrop-filter: blur(30px);
+  border: 1px solid #b9b9ce;
+  border-radius: 10px;
+  padding: 30px 200px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.Tournament-History {
+  width: 420px;
+  background: transparent;
+  color: #ffffff;
+  backdrop-filter: blur(30px);
+  border: 1px solid #b9b9ce;
+  border-radius: 10px;
+  padding: 30px 200px;
+}
+
+.action-button {
+  background-color: white;
+  color: black;
+  padding: 5px 70px;
+  border-radius: 30px;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: background-color 0.3s, transform 0.2s;
+  border: none;
+  text-decoration: none;
+}
+
+.action-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+  transform: translateY(-2px); /* Lift effect */
+}
+
+/* Active state */
+.action-button:active {
+  transform: translateY(0); /* Pressed-down effect */
+  background-color: transparent; /* Even darker shade */
+}
+
+.logout-button {
+  background-color: white;
+  color: black;
+  padding: 15px 70px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: background-color 0.3s, transform 0.2s;
+  border: none;
+  position: absolute;
+  top: 20px;
+  left: 40px;
+  text-decoration: none;
+}
+
+.logout-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+  transform: translateY(-2px); /* Lift effect */
+}
+
+/* Active state */
+.logout-button:active {
+  transform: translateY(0); /* Pressed-down effect */
+  background-color: transparent; /* Even darker shade */
+}
+
+.dropbtn {
+  background-color: white;
+  color: black;
+  padding: 16px 45px;
+  border-radius: 25px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: absolute;
+  top: 20px;
+  right: 70px;
+}
+
+.dropdown-content {
+  display: none;
+  position: center;
+  background-color: #f1f1f180;
+  min-width: 150px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  margin-top: 8px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown:hover .dropbtn {
+  background-color: #0056b3;
+}
+.t-history th {
+  text-align: center;
+  padding: 15px;
+  width: 500px;
+  background-color: #f1f1f180;
+  color: rgb(0, 0, 0);
+}
+
+.t-history tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
