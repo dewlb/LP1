@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Dashboard.css";
 import { TbLogout2 } from "react-icons/tb";
 import { IoMenu } from "react-icons/io5";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function Dashboard() {
   const [username, setUsername] = useState("");
@@ -19,19 +19,14 @@ function Dashboard() {
 
   return (
     <>
-      <h1>Hello {username}!</h1>
-      <Link to="/login" className="back-button">
-        <TbLogout2 size={20} />
+    <div className="background">
+      <h1 className="greeting">Hello {username}!</h1>
+      <Link to="/" className="logout-button">
+        <TbLogout2 size={35} />
       </Link>
 
-      <div className="Main-Actions">
-        <Link to="/JoinTournament" className="action-button">
-          Join Tournament
-        </Link>
-        <Link to="/CreateTournament" className="action-button">
-          Create Tournament
-        </Link>
-      </div>
+    <div className="dashbody">
+
 
       <div className="dropdown">
         <button className="dropbtn">
@@ -54,20 +49,20 @@ function Dashboard() {
       </div>
 
       <div className="Tournament-History">
-        <h2>Tournament History</h2>
-        <h4> You have participated in x tournaments.</h4>
-
+        <h2 className="heading">Tournaments</h2>
         <table className="t-history">
           <thead>
             <tr>
-              <th>Date</th>
               <th>Name</th>
-              <th>Location</th>
-              <th>Rank</th>
+              <th>Current Participants</th>
+              <th>Total Participants</th>
+              <th>Participants</th>
             </tr>
           </thead>
           <tbody></tbody>
         </table>
+      </div>
+      </div>
       </div>
     </>
   );

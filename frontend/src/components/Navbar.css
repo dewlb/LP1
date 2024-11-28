@@ -1,0 +1,58 @@
+.header {
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    padding: 20px 10%;
+    background: rgba(167, 0, 0, 0.541);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 32px;
+    color: white;
+    font-weight: 700;
+}
+
+.navbar a {
+    position: relative;
+    font-size: 18px;
+    color: white;
+    font-weight: 500;
+    margin-left: 40px;
+}
+
+.navbar a::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: .3s;
+}
+
+.navbar a:hover::before {
+    width: 100%;
+}
+
+.buttons {
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+    color: rgba(167, 0, 0, 0.9); /* Dark red text */
+    font-size: 16px;
+    padding: 10px 20px;
+    border: 2px solid rgba(167, 0, 0, 0.8); /* Add a border to tie it to the theme */
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.buttons:hover {
+    background-color: rgba(167, 0, 0, 0.8); /* Invert the colors on hover */
+    color: white;
+    transform: scale(1.1); /* Add a hover "pop" effect */
+}

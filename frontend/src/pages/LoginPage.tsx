@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './LoginPage.css';
 import { CiUser, CiLock } from "react-icons/ci";
 import {useState} from 'react';
+//import footbalPic from '../assets/huddle.jpg';
 
 
 
@@ -47,7 +48,7 @@ function LoginPage() {
 
             if( result.status == 401 )
             {
-                setMessage("Invalid username or password");
+                setMessage("Invalid username or password.");
             }
 
             if( result.status == 500 )
@@ -72,7 +73,7 @@ function LoginPage() {
 
     return (
         <>
-            <h1 id="title">GamePlan: Tournament Manager</h1>
+        <div className='body'>
             <div className='wrapper'>
                 <form action="">
                     <h1>Login</h1>
@@ -91,6 +92,9 @@ function LoginPage() {
                     <p>Don't have an account? <Link to="/register">Register now!</Link></p>
                 </div>
             </div>
+            </div>
+            
+           
         </>
     );
 };

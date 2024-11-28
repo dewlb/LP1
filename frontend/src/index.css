@@ -1,16 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap');
 
-body {
-  color: #ffffff;
+* {
   margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: url('./assets/placeholder_background.jpg') no-repeat;
+  padding: 0;
+  box-sizing: border-box;
   font-family: "Mona Sans", sans-serif;
-  min-height: 100vh;
-  background-size: cover;
-  background-position: center;
 }
 
+body {
+  background-color: black; 
+  color: white; 
+}
 
+a {
+  text-decoration: none;
+  background: transparent; 
+}

@@ -2,12 +2,13 @@
 import { Link } from "react-router-dom";
 import "./Connect.css";
 import { IoIosArrowRoundBack } from "react-icons/io";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function Connect() {
   const [userInfo, setUserInfo] = useState({
     firstName: "",
     lastName: "",
+    username: "",
     nation: "",
     birthdate: "",
     phoneNumber: "",
@@ -39,7 +40,7 @@ function Connect() {
         <IoIosArrowRoundBack size={30} />
       </Link>
 
-      <h2>{userInfo.username}</h2>
+       <h2>{userInfo.username}</h2>
       <div className="wrapper">
         <h3>User Details</h3>
         <h4>First Name: {userInfo.firstName || "Unknown"}</h4>

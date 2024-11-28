@@ -2,21 +2,10 @@
 import { Link } from "react-router-dom";
 import "./JoinTournament.css";
 import { CiSearch } from "react-icons/ci";
-import React, { useEffect, useState } from "react";
+
 
 function JoinTournament() {
-  useEffect(() => {
-    // Retrieve user info from local storage
-    const storedUserInfo = localStorage.getItem("user-info");
-    if (storedUserInfo) {
-      try {
-        const parsedUserInfo = JSON.parse(storedUserInfo);
-        setUserInfo(parsedUserInfo);
-      } catch (error) {
-        console.error("Error parsing user info:", error);
-      }
-    }
-  }, []);
+
 
   return (
     <>

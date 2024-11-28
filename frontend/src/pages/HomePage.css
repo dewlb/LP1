@@ -1,0 +1,104 @@
+@keyframes fade-in 
+{
+
+    0%{
+        opacity: 0;
+        transform: translateY(30px) scale(.9);
+    }
+
+    100%{
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+    }
+    
+}
+
+
+.navContainer {
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
+}
+
+li {
+    list-style: none;
+    display: inline-block;
+}
+
+li a{
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 25px;
+}
+
+.logo {
+    
+    top: 3px; 
+    left: 15px;
+}
+
+.slogan {
+    position: absolute; 
+    top: 450px; 
+    left: 100px; 
+    width: fit-content; 
+    text-align: left; 
+    font-size: 20px;
+    animation: fade-in 1.1s;
+}
+
+.container {
+    color: rgb(255, 255, 255); 
+    position: absolute; 
+    top: 150px; 
+    left: 100px; 
+    width: fit-content; 
+    text-align: left; 
+    font-size: 30px;
+    animation: fade-in 1.1s
+}
+
+.plan {
+    position: relative;
+    color: rgb(167, 0, 0);
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none; /* Remove underline */
+}
+
+.plan::before {
+    content: '';
+    position: absolute;
+    top: 100%; /* Position just below the text */
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: rgb(169, 0, 0);
+    transition: 0.3s ease;
+}
+
+.plan:hover::before {
+    width: 70%; /* Expand underline effect */
+}
+
+
+/*
+.page_img {
+    position: absolute;
+    top: 150px;
+    right: 0px;
+    height: 426px;
+    width: auto; 
+    animation: fade-in 1.1s forwards; 
+} */
+
+.page_img {
+    position: absolute;
+    top: 150px;
+    right: 0px;
+    height: 435px;
+    left: 20%;
+    width: auto; 
+    animation: fade-in 1.1s forwards; 
+}

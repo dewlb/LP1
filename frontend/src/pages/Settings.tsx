@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import "./Settings.css";
 import { IoIosArrowRoundBack } from "react-icons/io";
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 
 function Settings() {
   const [userInfo, setUserInfo] = useState({
@@ -42,7 +42,7 @@ function Settings() {
         <IoIosArrowRoundBack size={30} />
       </Link>
 
-      <h2>{userInfo.username}</h2>
+      
       <div className="wrapper">
         <h3>User Details</h3>
         <h4>First Name: {userInfo.firstName || "Unknown"}</h4>

@@ -1,25 +1,46 @@
-//import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LoginPage from './pages/LoginPage.tsx';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import RegisterPage from './pages/RegisterPage.tsx';
-// Used 2 have <LoginPage />
-import './App.css'
-import Dashboard from './pages/Dashboard.tsx';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import HomePage from './pages/HomePage';
+import Dashboard from './pages/Dashboard';
+import MyProfile from './pages/MyProfile';
+import Settings from './pages/Settings';
+import Connect from './pages/Connect';
+import AboutUs from './pages/AboutUs';
+
 
 function App() {
   return (
-    <>
-         <Router>
-            <Routes>
-                <Route path="/" element={<LoginPage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-            </Routes>
-        </Router>
-        
-    </>
-  )
+    <Router>
+      <MainContent />
+    </Router>
+  );
 }
 
-export default App
+// MainContent handles the logic for conditionally rendering Navbar
+function MainContent() {
+  const location = useLocation();
+  const hideNavbarRoutes = ['/login', '/register', '/dashboard', '/aboutus', '/MyProfile', '/Settings', '/connect']; // Add other routes where Navbar should be hidden
+
+  return (
+    <>
+      {/* Conditionally render Navbar based on the current route */}
+      {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
+      
+      {/* Define your Routes */}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/dashboard" element = {<Dashboard />} />
+        <Route path="/MyProfile" element = {<MyProfile />} />
+        <Route path="/Settings" element = {<Settings />} />
+        <Route path="/connect" element = {<Connect />} />
+        <Route path="/aboutus" element = {<AboutUs />} />
+      </Routes>
+    </>
+  );
+}
+
+export default App;

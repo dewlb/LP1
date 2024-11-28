@@ -1,4 +1,30 @@
-h1 {
+@keyframes color_fade {
+  0%{
+      background-position: 0 50%;
+  }
+
+  50%{
+      background-position: 100% 50%;
+  }
+
+  100%{
+      background-position: 0 50%;
+  }
+  
+}
+
+
+/* Just a placeholder for now while I figure out what to do w background lol*/
+.background {
+  background: linear-gradient(45deg, #000000, #390c0c, #000000 );
+  background-size: 200% 200%;
+  animation: color_fade 8s ease-in-out infinite ; 
+  min-height: 100vh; /* Ensures the background is at least the full viewport height */
+  width: 100%; /* Ensures the background spans the full width */
+}
+
+
+.greeting {
   position: absolute; /* Allows free positioning */
   top: 35px; /* Adjust as needed */
   left: 50%; /* Centers horizontally */
@@ -7,47 +33,38 @@ h1 {
   color: #ffffff; /* Ensure contrast with the background */
 }
 
-h2 {
-  text-align: center; /* Centers text horizontally */
-  margin-top: 40px; /* Adds some spacing from the top of the page */
-}
-
-.Main-Actions {
-  text-align: center; /* Centers text horizontally */
-  margin-top: 80px; /* Adds some spacing from the top of the page */
-}
-
-.Personal-Actions {
-  text-align: center; /* Centers text horizontally */
-  margin-top: 30px; /* Adds some spacing from the top of the page */
-}
-.Tournament-History {
-  text-align: center; /* Centers text horizontally */
-  margin-top: 30px; /* Adds some spacing from the top of the page */
-}
-
-.Main-Actions {
-  width: 420px;
-  background: transparent;
-  color: #ffffff;
-  backdrop-filter: blur(30px);
-  border: 1px solid #b9b9ce;
-  border-radius: 10px;
-  padding: 30px 200px;
+.dashbody {
   display: flex;
-  justify-content: center;
-  gap: 40px;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15vh; /* Push down based on viewport height */
 }
 
+/*
+.heading {
+  text-align: center; 
+  margin-top: 40px; 
+}
+
+
+
 .Tournament-History {
+  display: flex;
+  align-items: center;
+  text-align: center; 
+  margin-top: 30px; 
+
   width: 420px;
   background: transparent;
   color: #ffffff;
   backdrop-filter: blur(30px);
-  border: 1px solid #b9b9ce;
+  border:3px solid #ca0e0e;
   border-radius: 10px;
   padding: 30px 200px;
 }
+*/
+
+
 
 .action-button {
   background-color: white;
@@ -75,30 +92,26 @@ h2 {
 }
 
 .logout-button {
-  background-color: white;
-  color: black;
-  padding: 15px 70px;
-  border-radius: 30px;
-  font-size: 16px;
+  color: rgb(255, 255, 255);
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  transition: background-color 0.3s, transform 0.2s;
-  border: none;
-  position: absolute;
-  top: 20px;
+  transition: color 0.3s;
+  top: 50px;
   left: 40px;
   text-decoration: none;
 }
 
 .logout-button:hover {
-  background-color: #0056b3; /* Darker shade on hover */
-  transform: translateY(-2px); /* Lift effect */
+  color: #be0000; /* Darker shade on hover */
+  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  
 }
 
 /* Active state */
 .logout-button:active {
   transform: translateY(0); /* Pressed-down effect */
-  background-color: transparent; /* Even darker shade */
+  color: #7d0000; /* Even darker shade */
 }
 
 .dropbtn {
@@ -119,7 +132,7 @@ h2 {
 .dropdown-content {
   display: none;
   position: center;
-  background-color: #f1f1f180;
+  background-color: #f1f1f1ae;
   min-width: 150px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
@@ -135,6 +148,7 @@ h2 {
 
 .dropdown-content a:hover {
   background-color: #ddd;
+  
 }
 .dropdown:hover .dropdown-content {
   display: block;
@@ -142,14 +156,48 @@ h2 {
 .dropdown:hover .dropbtn {
   background-color: #0056b3;
 }
-.t-history th {
+
+
+.Tournament-History {
+  display: flex;
+  flex-direction: column; /* Stack the heading and table vertically */
+  align-items: center; /* Center the content horizontally */
+  margin: 30px auto; /* Center the container horizontally and add space from the top */
+  width: 90%; /* Adjust the width as needed */
+  max-width: 600px; /* Set a maximum width for better responsiveness */
+  background: transparent;
+  color: #ffffff;
+  backdrop-filter: blur(30px);
+  border: 1.5px solid #ca0e0e;
+  border-radius: 10px;
+  padding: 20px; /* Add padding for spacing inside the container */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.heading {
+  margin-bottom: 15px; /* Space between heading and table */
+  color: #ffffff;
+  font-size: 24px; /* Adjust font size as needed */
+  text-align: center; /* Center the heading */
+}
+
+.t-history {
+  width: 100%; /* Make the table take the full width of the container */
+  border-collapse: collapse; /* Remove space between table borders */
+}
+
+.t-history th, .t-history td {
   text-align: center;
   padding: 15px;
-  width: 500px;
-  background-color: #f1f1f180;
-  color: rgb(0, 0, 0);
+  border: 1px solid #f1f1f180; /* Add borders for table cells */
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  color: #ffffff;
+}
+
+.t-history th {
+  background-color: rgba(255, 255, 255, 0.2); /* Slightly darker for headers */
 }
 
 .t-history tbody tr:nth-child(odd) {
-  background-color: #f2f2f2;
+  background-color: rgba(255, 255, 255, 0.05);
 }
