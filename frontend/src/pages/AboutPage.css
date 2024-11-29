@@ -1,0 +1,51 @@
+@keyframes fade-in 
+{
+
+    0%{
+        opacity: 0;
+        transform: translateY(30px) scale(.9);
+    }
+
+    100%{
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+    }
+    
+}
+
+
+
+.desc-container {
+    display: flex;
+    flex-direction: column; /* Stack the heading and table vertically */
+    align-items: center; /* Center the content horizontally */
+    margin: 30px auto; /* Center the container horizontally and add space from the top */
+    width: 90%; /* Adjust the width as needed */
+    max-width: 600px; /* Set a maximum width for better responsiveness */
+    background: transparent;
+    color: #ffffff;
+    backdrop-filter: blur(30px);
+    border: 1.5px solid #ca0e0e;
+    border-radius: 10px;
+    padding: 20px; /* Add padding for spacing inside the container */
+    box-sizing: border-box; /* Include padding in width calculation */
+    margin-top: 25vh;
+    animation: fade-in 1s;
+}
+
+.team-container {
+    display: flex;
+    flex-direction: column; /* Stack the heading and table vertically */
+    align-items: center; /* Center the content horizontally */
+    margin: 30px auto; /* Center the container horizontally and add space from the top */
+    width: 90%; /* Adjust the width as needed */
+    max-width: 600px; /* Set a maximum width for better responsiveness */
+    background: transparent;
+    color: #ffffff;
+    backdrop-filter: blur(30px);
+    border: 1.5px solid #ca0e0e;
+    border-radius: 10px;
+    padding: 20px; /* Add padding for spacing inside the container */
+    box-sizing: border-box; /* Include padding in width calculation */
+    animation: fade-in 1s;
+}

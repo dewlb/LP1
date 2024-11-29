@@ -8,6 +8,8 @@ import MyProfile from './pages/MyProfile';
 import Settings from './pages/Settings';
 import Connect from './pages/Connect';
 import AboutUs from './pages/AboutUs';
+import AboutPage from './pages/AboutPage';
+import CreateTournament from './pages/CreateTournament';
 
 
 function App() {
@@ -21,7 +23,7 @@ function App() {
 // MainContent handles the logic for conditionally rendering Navbar
 function MainContent() {
   const location = useLocation();
-  const hideNavbarRoutes = ['/login', '/register', '/dashboard', '/aboutus', '/MyProfile', '/Settings', '/connect']; // Add other routes where Navbar should be hidden
+  const hideNavbarRoutes = ['/login', '/register', '/dashboard', '/aboutus', '/MyProfile', '/Settings', '/connect', '/createTournament']; // Add other routes where Navbar should be hidden
 
   return (
     <>
@@ -31,9 +33,11 @@ function MainContent() {
       {/* Define your Routes */}
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/about" element = {<AboutPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/dashboard" element = {<Dashboard />} />
+        <Route path="/createTournament" element = {<CreateTournament />} />
         <Route path="/MyProfile" element = {<MyProfile />} />
         <Route path="/Settings" element = {<Settings />} />
         <Route path="/connect" element = {<Connect />} />

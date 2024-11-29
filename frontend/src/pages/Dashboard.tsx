@@ -4,6 +4,8 @@ import "./Dashboard.css";
 import { TbLogout2 } from "react-icons/tb";
 import { IoMenu } from "react-icons/io5";
 import { useEffect, useState } from "react";
+import { IoIosAddCircleOutline } from "react-icons/io";
+import { LuSearch } from "react-icons/lu";
 
 function Dashboard() {
   const [username, setUsername] = useState("");
@@ -27,6 +29,18 @@ function Dashboard() {
 
     <div className="dashbody">
 
+    <div className="buttons-group">
+    <Link to="/createTournament">
+      <button className = "create-button">
+        <IoIosAddCircleOutline size={35} />
+      </button>
+    </Link>
+
+    <button className = "search-button">
+        <LuSearch size={35} />
+      </button>
+
+    </div>
 
       <div className="dropdown">
         <button className="dropbtn">

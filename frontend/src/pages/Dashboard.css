@@ -114,6 +114,52 @@
   color: #7d0000; /* Even darker shade */
 }
 
+
+.buttons-group {
+  display: flex; /* Enable flexbox for alignment */
+  gap: 20px; /* Add space between buttons */
+  justify-content: center; /* Optional: Center the buttons horizontally */
+  align-items: center; /* Optional: Align the buttons vertically */
+}
+
+.create-button{
+  color: #ffffff;
+  background-color: transparent;
+  cursor: pointer;
+  transition: color 0.3s, transform 0.3s ease-in-out;;
+  top: 50px;
+  left: 40px;
+  text-decoration: none;
+  outline: none; /* Remove the button outline */
+  border: none; /* Ensure no borders are visible */
+  padding: 0; /* Remove any default padding */
+}
+
+.create-button:hover {
+  color: #1580f1;
+  transform: scale(1.1);
+  background-color: transparent;
+}
+
+.search-button{
+  color: #ffffff;
+  background-color: transparent;
+  cursor: pointer;
+  transition: color 0.3s, transform 0.3s ease-in-out;;
+  top: 50px;
+  left: 40px;
+  text-decoration: none;
+  outline: none; /* Remove the button outline */
+  border: none; /* Ensure no borders are visible */
+  padding: 0; /* Remove any default padding */
+}
+
+.search-button:hover {
+  color: #1580f1;
+  transform: scale(1.1);
+  background-color: transparent;
+}
+
 .dropbtn {
   background-color: white;
   color: black;
