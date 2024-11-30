@@ -14,14 +14,15 @@ router.post('/updateTournament', async(req, res) => {
     console.log(u_collection);
     
     //change this so that max_size cant be changed
-    const {name, max_size, current_size, participants, tournamentID, addUser = null, deleteUser = null} = req.body;
+    const {status = 0, name, max_size, current_size, participants, tournamentID, addUser = null, deleteUser = null} = req.body;
 
     const inputTournament = {
         name: name,         // account for duplicate names                  <-------- L O O K
         max_size: max_size,
         current_size: current_size,
         participants: participants,
-        tournamentID: tournamentID
+        tournamentID: tournamentID,
+        status: status
     }
 
     try{

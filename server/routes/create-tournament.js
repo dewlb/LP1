@@ -17,7 +17,8 @@ router.post('/createTournament', async(req, res) => {
         owner: userID,
         max_size: size,
         current_size: 0,
-        participants: []
+        participants: [],
+        status: 0
     }
 
     try{
