@@ -20,6 +20,7 @@ describe('POST /createTournament', () => {
             max_size: 16,
             current_size: 0,
             participants: [],
+            status:0
         });
     });
 
