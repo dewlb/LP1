@@ -64,7 +64,7 @@ function ForgotPassPage() {
                 <button onClick={sendPass} type='submit'>Send</button>
                 <span id="loginResult">{message}</span> 
                 <div className="register-link">
-                    <p>Back to login.<Link to="/login">Login!</Link></p>
+                    <p><Link to="/login">Back to login.</Link></p>
                 </div>
             </div>
             </div>
