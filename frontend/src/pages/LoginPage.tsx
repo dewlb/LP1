@@ -91,6 +91,9 @@ function LoginPage() {
                 <div className="register-link">
                     <p>Don't have an account? <Link to="/register">Register now!</Link></p>
                 </div>
+                <div className="register-link">
+                    <p><Link to="/forgotPassword">Forgot Password?</Link></p>
+                </div>
             </div>
             </div>
             

@@ -106,6 +106,19 @@ function CreateTournament() {
     setTournamentName(e.target.value);
   };
 
+  //////////// date
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  const handleDateSubmission = () => {
+    if (new Date(startDate) > new Date(endDate)) {
+      alert("Start date cannot be later than end date.");
+      return;
+    }
+    console.log("Start Date:", startDate, "End Date:", endDate);
+    // Proceed with backend submission or advance to the next step
+  };
+
   /////////////// Participants
   const [participantNames, setParticipantNames] = useState<string[]>([]);
 
@@ -119,14 +132,15 @@ function CreateTournament() {
   };
 
   ///// Get username
-  const [username, setUsername] = useState("");
+  // const [username, setUsername] = useState("");
+  const [userID, setID] = useState("");
 
   useEffect(() => {
     // Retrieve user info from local storage
     const userInfo = localStorage.getItem("user-info");
     if (userInfo) {
       const user = JSON.parse(userInfo);
-      setUsername(user.username);
+      setID(user._id);
     }
   }, []);
 
@@ -137,6 +151,20 @@ function CreateTournament() {
     setMessage(""); // Clear the success message when navigating to the previous step
   };
 
+  const goToTournamentInfo = () => {
+    setIsMessageVisible(false); // Hide the message container when the button is clicked
+    setStep(1); // Navigate to the Tournament Info tab
+  };
+
+  const [isMessageVisible, setIsMessageVisible] = useState(true); // Default is true, meaning the message is visible
+  const [isFirstVisit, setIsFirstVisit] = useState(true); // This will be true when the user first loads the page
+
+  useEffect(() => {
+    if (isFirstVisit) {
+      setIsMessageVisible(false); // Hide message container on first visit
+      setIsFirstVisit(false); // Set isFirstVisit to false after the first visit
+    }
+  }, [isFirstVisit]); // This runs once on component mount
   /////////// Clear form
 
   const clearForm = () => {
@@ -148,6 +176,8 @@ function CreateTournament() {
     setSelectedSport(null);
     setMessage("");
     setHighlightIndex(-1);
+    setStartDate("");
+    setEndDate("");
   };
 
   // API Call to create tournament
@@ -159,21 +189,23 @@ function CreateTournament() {
       !selectedFormat ||
       !numParticipants ||
       !selectedSport ||
-      participantNames.some((name) => name === "")
+      !endDate ||
+      !startDate
     ) {
       setMessage("Please fill out all fields.");
+      setIsMessageVisible(true); // Show the message container
       return;
     }
 
     const requestBody = {
       name: tournamentName,
-      userID: { username }, // Replace with the actual user ID
+      userID: userID, // Replace with the actual user ID
       size: parseInt(numParticipants, 10),
       sport: selectedSport,
-      participants: participantNames, // Send the participants' names
+      format: selectedFormat,
+      start: startDate,
+      end: endDate,
     };
-
-    console.log("Request Body:", requestBody); // Log to confirm it's correct
 
     try {
       setLoading(true);
@@ -207,6 +239,9 @@ function CreateTournament() {
     } finally {
       setLoading(false);
     }
+
+    setMessage("Tournament created successfully!");
+    setIsMessageVisible(true); // Show the message container
   };
 
   //  Progress Bar  //
@@ -271,8 +306,45 @@ function CreateTournament() {
           </div>
         )}
 
-        {/* Step 2: Participants */}
+        {/* Step 2: Tournament Date and Status */}
         {step === 2 && (
+          <div className="center-container">
+            <div className="date-status">
+              <div className="date-input-container">
+                <div className="date-field">
+                  <label htmlFor="start-date" className="sd-label">
+                    Start Date:
+                  </label>
+                  <input
+                    type="date"
+                    id="start-date"
+                    name="start-date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="date-field">
+                  <label htmlFor="end-date" className="ed-label">
+                    End Date:
+                  </label>
+                  <input
+                    type="date"
+                    id="end-date"
+                    name="end-date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Step 3: Participants */}
+        {step === 3 && (
           <div className="participants-container">
             <label htmlFor="opponent" className="opponent-label">
               Enter Number:
@@ -289,7 +361,7 @@ function CreateTournament() {
           </div>
         )}
 
-        {step === 3 && (
+        {step === 4 && (
           <div className="autocomplete-container">
             <label htmlFor="sport" className="autocomplete-label">
               Search Sport:
@@ -323,14 +395,22 @@ function CreateTournament() {
           </div>
         )}
 
-        {step === 4 && (
+        {step === 5 && (
           <div>
             <div className="submit-button-container">
               <button onClick={handleCreateTournament}>Submit</button>
             </div>
 
+            {isMessageVisible && (
+              <div className="message-container">
+                <button className="new-btn" onClick={goToTournamentInfo}>
+                  Create another tournament!
+                </button>
+                {message && <div className="message">{message}</div>}
+              </div>
+            )}
+
             {/* Display the success or error message if available */}
-            {message && <div className="message">{message}</div>}
 
             <div className="navigation-buttons">
               <button onClick={handlePrevious}>
