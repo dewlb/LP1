@@ -78,10 +78,11 @@
   top: 20px;
   left: 20px;
   text-decoration: none;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .logout-button:hover {
-  color: white; /* Darker shade on hover */
+  color: rgb(3, 2, 2); /* Darker shade on hover */
   transform: scale(1.1);
   -webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
@@ -363,4 +364,37 @@ td .view-btn {
 .view-btn:hover {
   background-color: #e7c246; /* Darker red on hover */
   transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+/* Ensure the parent container is a flex container */
+.join-container {
+  display: flex; /* Enable flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  padding-top: 10px;
+}
+
+.join-btn {
+  background-color: rgba(255, 255, 255, 0.1);; /* White background for contrast */
+  color: #ffffff; /* Matching your red border theme */
+  font-size: 18px; /* Make it slightly larger for emphasis */
+  font-weight: bold; /* Stand out */
+  padding: 10px 20px; /* Add some spacing */
+  border-radius: 50px; /* Rounded button */
+  border: 2px solid #abe0d7; /* Consistent border color */
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+  transition: background-color 0.3s, color 0.3s, transform 0.2s ease-in-out;
+}
+
+.join-btn:hover {
+  background-color: #038796; /* Red background on hover */
+  color: #ffffff; /* White text for contrast */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+.join-btn:active {
+  transform: scale(0.98); /* Pressed down effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow */
+  background-color: #11575f; /* Darker red for active state */
 }

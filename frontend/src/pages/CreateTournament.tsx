@@ -7,6 +7,7 @@ import ProgressBar from "./ProgressBar";
 // icons
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowRoundBack } from "react-icons/io"
 
 // The list of sports
 
@@ -110,17 +111,17 @@ function CreateTournament() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  const handleDateSubmission = () => {
+  /*const handleDateSubmission = () => {
     if (new Date(startDate) > new Date(endDate)) {
       alert("Start date cannot be later than end date.");
       return;
     }
     console.log("Start Date:", startDate, "End Date:", endDate);
     // Proceed with backend submission or advance to the next step
-  };
+  }; */
 
   /////////////// Participants
-  const [participantNames, setParticipantNames] = useState<string[]>([]);
+  const [, setParticipantNames] = useState<string[]>([]);
 
   const handleNumParticipantsChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -181,7 +182,7 @@ function CreateTournament() {
   };
 
   // API Call to create tournament
-  const [loading, setLoading] = useState<boolean>(false);
+  const [, setLoading] = useState<boolean>(false);
 
   const handleCreateTournament = async () => {
     if (
@@ -261,7 +262,7 @@ function CreateTournament() {
         <h1>Create Tournament</h1>
       </div>
       <Link to="/dashboard" className="back-button">
-        Back
+      <IoIosArrowRoundBack size={40} />
       </Link>
       <ProgressBar currentStep={step} />
       <div className="step-content">

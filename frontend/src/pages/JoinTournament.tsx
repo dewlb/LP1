@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./JoinTournament.css";
 import { LuSearch } from "react-icons/lu";
 import { useEffect, useState } from "react";
+import { IoIosArrowRoundBack } from "react-icons/io"
 
 
 // Define Tournament interface
@@ -231,19 +232,20 @@ function JoinTournament() {
 
   return (
     <>
-      <h1>Start playing!</h1>
+    <div className="join-background">
+      <h1 className = "start-greeting">Start playing!</h1>
 
       <Link to="/dashboard" className="back-button">
-        Back
+      <IoIosArrowRoundBack size={40} />
       </Link>
-      <div className="search-box">
+      <div className="search-container">
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               type="text"
               placeholder="Search"
             />
-            <button onClick={searchAllTournament} className="search-button">
+            <button onClick={searchAllTournament} className="tosearch-button">
               <LuSearch size={25} />
             </button>
           </div>
@@ -280,6 +282,7 @@ function JoinTournament() {
           </tbody>
 
           </table>
+        </div>
         </div>
     </>
   );

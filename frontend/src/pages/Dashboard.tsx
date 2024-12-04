@@ -192,8 +192,9 @@ function Dashboard() {
           </div>
         </div>
 
+        <h3 className="join">Want to join a tournament instead?</h3>
         <div className="join-container">
-            <h3 className="join">Want to join a tournament instead?</h3>
+            
             <Link to="/joinTournament"><button className="join-btn">Find a Tournament!</button></Link>
         </div>
 
