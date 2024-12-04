@@ -18,6 +18,7 @@ import CreateTournament from "./pages/CreateTournament";
 import ProgressBar from "./pages/ProgressBar";
 import Tournament from "./pages/TournamentPage";
 import UpdateTournament from "./pages/UpdateTournament";
+import ForgotPassPage from "./pages/ForgotPassPage";
 
 function App() {
   return (
@@ -67,6 +68,7 @@ function MainContent() {
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/progressBar" element={<ProgressBar currentStep={1} />} />
         <Route path="/item/:id" element={<Tournament />} />
+        <Route path="/forgotPassword" element={<ForgotPassPage />} />
       </Routes>
     </>
   );
