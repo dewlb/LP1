@@ -58,9 +58,9 @@ function LoginPage() {
   
                         
             console.warn("result code", result);
-            result = await result.json();
+            const info = await result.json();
             console.warn("result", result);
-            localStorage.setItem("user-info", JSON.stringify(loginUser)); 
+            localStorage.setItem("user-info", JSON.stringify(info.info)); 
 
         }//end of try
         catch (error) {
