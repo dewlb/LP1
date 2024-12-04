@@ -13,15 +13,17 @@ router.post('/updateTournament', async(req, res) => {
     console.log(client);
     console.log(u_collection);
     
-    //change this so that max_size cant be changed
-    const {status = 0, name, max_size, current_size, participants, tournamentID, addUser = null, deleteUser = null} = req.body;
+    const {tournamentID, name, size, participants, format, sport, start, end, status} = req.body;
 
     const inputTournament = {
-        name: name,         // account for duplicate names                  <-------- L O O K
-        max_size: max_size,
-        current_size: current_size,
-        participants: participants,
         tournamentID: tournamentID,
+        name: name,
+        size: size,
+        participants: participants,
+        format: format,
+        sport: sport,
+        start: start,
+        end: end,
         status: status
     }
 
@@ -30,20 +32,15 @@ router.post('/updateTournament', async(req, res) => {
         // create updatedTournament object with same values as inputTournament except tournamentID so object id is not changed
         const { tournamentID, ...updatedTournament } = inputTournament;
 
-        await t_collection.updateOne( {_id: ObjectId.createFromHexString(tournamentID)}, {$set: updatedTournament} );
+        const tournament = await collection.findOne({name: name});
 
-        if(addUser)     //if addUser is NOT null, a user is being added
-        {
-            // add tournament to user's list of tournaments
-            await u_collection.updateOne({_id: ObjectId.createFromHexString(addUser)}, {$push: {tournaments: name}});
+        if(tournament){
+            res.status(409).json({error: "Tournament with this name already exists"});
         }
-        if(deleteUser)      //if deleteUser is NOT null, a user is being deleted
-        {
-            // delete tournament from user's list of tournaments
-            await u_collection.updateOne({_id: ObjectId.createFromHexString(deleteUser)}, {$pull: {tournaments: name}});
+        else{
+            await t_collection.updateOne( {_id: ObjectId.createFromHexString(tournamentID)}, {$set: updatedTournament} );
+            res.status(200).json({message: "Tournament updated successfully"});
         }
-
-        res.status(200).json({message: "Tournament updated successfully"});
     }
     catch(error){
         console.log("Error updating tournament: ", error);
