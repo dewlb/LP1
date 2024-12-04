@@ -19,6 +19,7 @@ import ProgressBar from "./pages/ProgressBar";
 import Tournament from "./pages/TournamentPage";
 import UpdateTournament from "./pages/UpdateTournament";
 import ForgotPassPage from "./pages/ForgotPassPage";
+import ViewTournament from "./pages/ViewTournament";
 import JoinTournament from "./pages/JoinTournament";
 
 function App() {
@@ -42,13 +43,16 @@ function MainContent() {
     "/connect",
     "/createTournament",
     "/progressBar",
-    "/joinTournament"
+    "/joinTournament",
+    "/updateTournament",
+    "/viewTournament",
   ]; // Add other routes where Navbar should be hidden
 
-  const shouldHideNavbar = 
-    hideNavbarRoutes.includes(location.pathname) || 
+  const shouldHideNavbar =
+    hideNavbarRoutes.includes(location.pathname) ||
     location.pathname.startsWith("/item") ||
-    location.pathname.startsWith("/updateTournament");
+    location.pathname.startsWith("/UpdateTournament") ||
+    location.pathname.startsWith("/TournamentDetails");
 
   return (
     <>
@@ -62,7 +66,6 @@ function MainContent() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/joinTournament" element={<JoinTournament />} />
         <Route path="/createTournament" element={<CreateTournament />} />
         <Route path="/updateTournament/:id" element={<UpdateTournament />} />
         <Route path="/MyProfile" element={<MyProfile />} />
@@ -72,6 +75,8 @@ function MainContent() {
         <Route path="/progressBar" element={<ProgressBar currentStep={1} />} />
         <Route path="/item/:id" element={<Tournament />} />
         <Route path="/forgotPassword" element={<ForgotPassPage />} />
+        <Route path="/TournamentDetails/:id" element={<ViewTournament />} />
+        <Route path="/joinTournament" element={<JoinTournament />} />
       </Routes>
     </>
   );
