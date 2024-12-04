@@ -46,6 +46,7 @@ function MainContent() {
     "/joinTournament",
     "/updateTournament",
     "/viewTournament",
+    "/forgotPassword"
   ]; // Add other routes where Navbar should be hidden
 
   const shouldHideNavbar =
