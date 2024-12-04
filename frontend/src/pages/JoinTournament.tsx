@@ -96,15 +96,18 @@ function JoinTournament() {
       return;
     }
   
-    // Fetch the tournament's details using the selected ID
     try {
-      const response = await fetch(`http://cop4331-team14.xyz:3000/api/searchTournaments`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ objectId: selectedID }),
-      });
+      // Fetch the tournament's current details
+      const response = await fetch(
+        `http://cop4331-team14.xyz:3000/api/searchTournaments`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ objectId: selectedID }),
+        }
+      );
   
       if (!response.ok) {
         throw new Error("Failed to fetch tournament data");
@@ -126,24 +129,25 @@ function JoinTournament() {
         return;
       }
   
-      // Prepare updated tournament data
+      // Update participants and current size
       const updatedParticipants = [...participants, firstName];
       const updatedCurrentSize = current_size + 1;
   
+      // Prepare the payload for updating the tournament
       const payload = {
-        name: tournName,
-        addUser: userID,
         tournamentID: selectedID,
+        name: tournament.name,
+        max_size: max_size,
         current_size: updatedCurrentSize,
-        max_size: maxSize,
         participants: updatedParticipants,
-        format,
-        sport,
-        start,
-        end,
+        //status: "Updated after join", // Adjust if needed
+        format: tournament.format,
+        sport: tournament.sport,
+        start: tournament.start,
+        end: tournament.end,
       };
   
-      // Update the tournament
+      // Send the updated tournament data to the server
       const updateResponse = await fetch(
         "http://cop4331-team14.xyz:3000/api/updateTournament",
         {
@@ -159,7 +163,10 @@ function JoinTournament() {
         console.log("Tournament updated successfully");
         searchAllTournament(); // Refresh the tournament list
       } else {
-        console.error("Failed to update tournament:", updateResponse.statusText);
+        console.error(
+          "Failed to update tournament:",
+          updateResponse.statusText
+        );
       }
     } catch (error) {
       console.error("Error during join operation:", error);
