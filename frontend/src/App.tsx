@@ -40,13 +40,13 @@ function MainContent() {
     "/Settings",
     "/connect",
     "/createTournament",
-    "/progressBar",
-    "/updateTournament"
+    "/progressBar"
   ]; // Add other routes where Navbar should be hidden
 
   const shouldHideNavbar = 
     hideNavbarRoutes.includes(location.pathname) || 
-    location.pathname.startsWith("/item");
+    location.pathname.startsWith("/item") ||
+    location.pathname.startsWith("/updateTournament");
 
   return (
     <>
