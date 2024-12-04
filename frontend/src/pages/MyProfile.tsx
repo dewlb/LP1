@@ -4,66 +4,96 @@ import "./MyProfile.css";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import React, { useEffect, useState } from "react";
 
-function MyProfile() {
-  const [userInfo, setUserInfo] = useState({
-    username: "",
-    nation: "",
-    age: "",
-    school: "",
-    tournName: "",
-    weightClass: "",
-    oppName: "",
-    reason: "",
-    place: "",
-  });
+function MyProfile()
+{
+  const [userOwnedTournaments, setUserOwnedTournaments] = useState([]);
 
-  useEffect(() => {
-    // Retrieve user info from local storage
-    const storedUserInfo = localStorage.getItem("user-info");
-    if (storedUserInfo) {
-      try {
-        const parsedUserInfo = JSON.parse(storedUserInfo);
-        setUserInfo(parsedUserInfo);
-      } catch (error) {
-        console.error("Error parsing user info:", error);
+  useEffect(() =>
+  {
+    const fetchTournaments = async () =>
+    {
+      const storedUserInfo = localStorage.getItem("user-info");
+      if (storedUserInfo)
+      {
+        try
+        {
+          const info = JSON.parse(storedUserInfo);
+          const id = info.id;
+
+          const response = await fetch("http://cop4331-team14.xyz:3000/api/searchTournaments", {
+            method: 'POST',
+            body: JSON.stringify({ owner: id }),
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            }
+          });
+
+          if (response.ok)
+          {
+            const result = await response.json();
+            if (result.tournaments)
+            {
+              console.log(result.tournaments)
+              setUserOwnedTournaments(result.tournaments);
+            }
+            console.log("Tournaments fetched:", result);
+          } else
+          {
+            console.error("Failed to fetch tournaments:", response.statusText);
+          }
+        } catch (error)
+        {
+          console.error("Error:", error);
+        }
       }
-    }
+    };
+
+    fetchTournaments(); // Call the async function
   }, []);
 
-  return (
-    <>
-      <h1>My Profile</h1>
+  const tournaLink = (props: any) =>
+  {
+    return (
+      <li
+        key={props.name}
+        style={{
+          border: "1px solid #ccc",
+          margin: "10px 0",
+          borderRadius: "5px",
+          padding: "15px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Link to={`/item/${props._id}`}>{props.name}</Link>
+      </li>
+    )
+  }
 
+
+  return (
+    <div>
       <Link to="/dashboard" className="back-button">
         <IoIosArrowRoundBack size={30} />
       </Link>
       <div className="wrapper">
-        <h2>{userInfo.username}</h2>
+        <h1>My Profile</h1>
 
-        <h3>
-          Nationality: {userInfo.nation || "Unknown"} | Age:{" "}
-          {userInfo.age || "Unknown"}
-        </h3>
+        <div>
+          <h2>Tournaments I created</h2>
+          <ul>
+            {userOwnedTournaments.map((item) => tournaLink(item))}
+          </ul>
+        </div>
 
-        <h3>School: {userInfo.school || "Unknown"}</h3>
+        <div>
+          <h2>Tournaments I'm in</h2>
+          <h3>(No tournaments to show yet)</h3>
+        </div>
       </div>
-      <p></p>
-      <div className="wrapper">
-        <h2>Past Tournaments </h2>
-        <h3>
-          Name: {userInfo.tournName || "Unknown"} (Weightclass):{" "}
-          {userInfo.weightClass || "Unknown"}
-        </h3>
-        <h3>
-          {" "}
-          {userInfo.place || "Win/Loss"} - Opponent Name:{" "}
-          {userInfo.oppName || "Unknown"} (reason for win/loss):{" "}
-          {userInfo.reason || "Unknown"}
-        </h3>
-        <h3> (Rank): {userInfo.place || "Unknown"}</h3>
-      </div>
-    </>
+    </div>
   );
+
 }
 
 export default MyProfile;
