@@ -14,7 +14,7 @@ router.post('/updateTournament', async(req, res) => {
     console.log(u_collection);
     
     //change this so that max_size cant be changed
-    const {status = 0, name, max_size, current_size, participants, tournamentID, addUser = null, deleteUser = null, format, sport, start, end} = req.body;
+    const {status = 0, name, max_size, current_size, participants, tournamentID, addUser = null, deleteUser = null, format = null, sport = null, start = null, end} = req.body;
 
     const inputTournament = {
         name: name,
@@ -22,11 +22,14 @@ router.post('/updateTournament', async(req, res) => {
         current_size: current_size,
         participants: participants,
         tournamentID: tournamentID,
-        status: status,
-        format: format,
-        sport: sport,
-        start: start,
-        end: end
+        status: status
+    }
+
+    if(format) {
+        inputTournament.format = format;
+        inputTournament.sport = sport;
+        inputTournament.start = start;
+        inputTournament.end = end;
     }
 
     try{
@@ -48,11 +51,11 @@ router.post('/updateTournament', async(req, res) => {
 
         if(addUser){
             // add tournament to user's list of tournaments
-            await u_collection.updateOne({_id: ObjectId.createFromHexString(addUser)}, {$push: {tournaments: tournament}});
+            await u_collection.updateOne({_id: ObjectId.createFromHexString(addUser)}, {$push: {tournaments: name}});
         }
         if(deleteUser){
             // delete tournament from user's list of tournaments
-            await u_collection.updateOne({_id: ObjectId.createFromHexString(deleteUser)}, {$pull: {tournaments: tournament}});
+            await u_collection.updateOne({_id: ObjectId.createFromHexString(deleteUser)}, {$pull: {tournaments: name}});
         }
 
         res.status(200).json({message: "Tournament updated successfully"});
