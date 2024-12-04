@@ -305,6 +305,11 @@ html {
   width: 500px;
 }
 
+.message-container.hidden {
+  opacity: 0; /* Make it invisible */
+  pointer-events: none; /* Prevent any interaction when hidden */
+}
+
 .new-btn {
   background-color: rgba(255, 0, 0, 0.829);
   color: white;
