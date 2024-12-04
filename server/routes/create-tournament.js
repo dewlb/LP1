@@ -9,7 +9,7 @@ router.post('/createTournament', async(req, res) => {
     // mongodb connection
     const {collection, client} = await connectMongo('tournaments');
 
-    const {name, userID, size} = req.body;
+    const {name, userID, size, format, sport, start, end} = req.body;
 
     // tournament to be added to database
     const inputTournament = {
@@ -18,6 +18,10 @@ router.post('/createTournament', async(req, res) => {
         max_size: size,
         current_size: 0,
         participants: [],
+        format: format,
+        sport: sport,
+        start: start,
+        end: end,
         status: 0
     }
 
