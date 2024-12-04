@@ -34,15 +34,15 @@ function JoinTournament() {
     }
   }, []);
 
-  const [maxSize, setMaxSize] = useState<number>(0);
-  const [currentSize, setCurrentSize] = useState<number>(0);
-  const [participants, setParticipants] = useState<string[]>([]);
-  const [id, setSelectedTournamentID] = useState<string | null>(null);
-  const [tournName, setTName] = useState<string>("");
-  const [format, setFormat] = useState<string>("");
-  const [sport, setSport] = useState<string>("");
-  const [start, setStart] = useState<string>("");
-  const [end, setEnd] = useState<string>("");
+  const [, setMaxSize] = useState<number>(0);
+  const [, setCurrentSize] = useState<number>(0);
+  const [, setParticipants] = useState<string[]>([]);
+  const [id, ] = useState<string | null>(null);
+  const [, setTName] = useState<string>("");
+  const [, setFormat] = useState<string>("");
+  const [, setSport] = useState<string>("");
+  const [, setStart] = useState<string>("");
+  const [, setEnd] = useState<string>("");
   
 
   // Fetch current tournament details on mount
@@ -136,6 +136,7 @@ function JoinTournament() {
       // Prepare the payload for updating the tournament
       const payload = {
         tournamentID: selectedID,
+        addUser: userID, //added line
         name: tournament.name,
         max_size: max_size,
         current_size: updatedCurrentSize,
