@@ -5,7 +5,7 @@ import createTournament from './routes/create-tournament.js'
 import searchTournaments from './routes/search-tournaments.js'
 import updateTournament from './routes/update-tournament.js'
 import deleteTournament from './routes/delete-tournament.js'
-import reset from './routes/forgot-password.js'
+import reset from './routes/reset-password.js'
 import cors from 'cors';
 
 const app = express();
