@@ -13,6 +13,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ currentStep }) => {
   // Define descriptions for each step
   const stepDescriptions = [
     "Tournament Info",
+    "Tournament Date",
     "Participants",
     "Select Sport",
     "Finish",
