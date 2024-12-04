@@ -10,7 +10,7 @@ const ViewTournament: React.FC = () => {
     navigate("/dashboard");
   };
 
-  const { id } = useParams();
+  const { id } = useParams<string>();
 
   // Initialize state
   const [name, setName] = useState<string>("");
@@ -22,7 +22,7 @@ const ViewTournament: React.FC = () => {
   const [start, setStart] = useState<string>("");
   const [end, setEnd] = useState<string>("");
   const [message, setMessage] = useState<string>("");
-  const [matches, setMatches] = useState<any[]>([]); // Initialize matches as an empty array
+  const [matches, setMatches] = useState<[string, string][]>([]); // Correct type for matches
 
   // Fetch current tournament details on mount or when the ID changes
   useEffect(() => {
@@ -59,7 +59,7 @@ const ViewTournament: React.FC = () => {
           // Check if there's only one participant
           if (tournament.participants && tournament.participants.length === 1) {
             setMatches([
-              `${tournament.participants[0]} has won the tournament!`,
+              [`${tournament.participants[0]} has won the tournament!`, ""],
             ]);
           } else {
             // Generate matches if there are multiple participants
@@ -68,7 +68,6 @@ const ViewTournament: React.FC = () => {
           }
         } catch (error) {
           console.error("Error fetching tournament data:", error);
-          //setMessage("Error fetching tournament data");
         }
       };
 
@@ -76,17 +75,33 @@ const ViewTournament: React.FC = () => {
     }
   }, [id]);
 
-  const generateMatches = (participants) => {
+  // Generates matches from participants
+  const generateMatches = (participants: string[]): any[] => {
     let matches = [];
 
     // Ensure participants is a multiple of 2
     while (participants.length % 2 !== 0) {
-      participants.push("-----");
+      participants.push("-----"); // This handles odd number of participants
     }
 
     // Pair participants into matches
     for (let i = 0; i < participants.length; i += 2) {
-      matches.push([participants[i], participants[i + 1]]);
+      // Check if both participants are valid (not "-----")
+      if (participants[i] !== "-----" && participants[i + 1] !== "-----") {
+        matches.push([participants[i], participants[i + 1]]);
+      } else if (
+        participants[i] !== "-----" &&
+        participants[i + 1] === "-----"
+      ) {
+        // If only the first participant is valid, it's a bye-round
+        matches.push([participants[i]]);
+      } else if (
+        participants[i] === "-----" &&
+        participants[i + 1] !== "-----"
+      ) {
+        // Handle the edge case where the first participant is "-----" and second is valid
+        matches.push([participants[i + 1]]);
+      }
     }
 
     return matches;
@@ -155,19 +170,18 @@ const ViewTournament: React.FC = () => {
       {/* Render the tournament bracket */}
       {matches.length > 0 && (
         <div className="bracket">
-          {typeof matches[0] === "string" ? (
-            <div className="match">
-              <span>{matches[0]}</span>
-            </div>
-          ) : (
-            matches.map((match, index) => (
-              <div key={index} className="match">
+          {matches.map((match, index) => (
+            <div key={index} className="match">
+              {/* If there's only one participant, display the winner message */}
+              {currentSize === 1 ? (
+                <span>{match[0]}</span> // No "vs" here for the single participant
+              ) : (
                 <span>
                   {match[0]} vs {match[1]}
                 </span>
-              </div>
-            ))
-          )}
+              )}
+            </div>
+          ))}
         </div>
       )}
 
@@ -176,7 +190,15 @@ const ViewTournament: React.FC = () => {
       <button className="back-button" onClick={handleBackClick}>
         Back
       </button>
+      <button
+        className="trash"
+        onClick={handleViewTournament}
+        style={{ display: "none" }}
+      >
+        Trash
+      </button>
     </div>
   );
 };
+
 export default ViewTournament;
