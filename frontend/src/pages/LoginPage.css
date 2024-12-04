@@ -119,11 +119,14 @@ button:hover
     color: #ffffff;
 }
 
-.input-box .icon{
+
+
+.input-box .icon {
     position: absolute;
-    right: 200px; 
-    top: 50%; 
-    transform: translateY(-50%); 
+    right: 25px; /* Adjust this value to move the icon closer to the input */
+    top: 50%; /* Centers the icon vertically */
+    transform: translateY(-50%); /* Keeps vertical centering consistent */
     font-size: 20px;
-    z-index: 2; 
+    z-index: 2;
+    color: #ffffff; /* Optional: Ensure the icon matches the theme */
 }
