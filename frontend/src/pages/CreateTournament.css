@@ -6,6 +6,14 @@ html {
   overflow: auto;
 }
 
+.create-background {
+  background: url("https://t4.ftcdn.net/jpg/04/33/50/77/360_F_433507716_M5xVv6LLof4Rj1iDMIBTd6GnFnLC8gFK.jpg")
+    center center / cover no-repeat;
+  min-height: 100vh;
+  width: 100%;
+  margin-top: -20px; /* Moves the whole container up */
+}
+
 .title {
   text-align: center;
   margin-top: 20px;
