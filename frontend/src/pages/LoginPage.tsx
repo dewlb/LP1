@@ -58,9 +58,9 @@ function LoginPage() {
   
                         
             console.warn("result code", result);
-            result = await result.json();
+            const info = await result.json();
             console.warn("result", result);
-            localStorage.setItem("user-info", JSON.stringify(loginUser)); 
+            localStorage.setItem("user-info", JSON.stringify(info.info)); 
 
         }//end of try
         catch (error) {
@@ -90,6 +90,9 @@ function LoginPage() {
                 <span id="loginResult">{message}</span> 
                 <div className="register-link">
                     <p>Don't have an account? <Link to="/register">Register now!</Link></p>
+                </div>
+                <div className="register-link">
+                    <p><Link to="/forgotPassword">Forgot Password?</Link></p>
                 </div>
             </div>
             </div>

@@ -1,241 +1,63 @@
-body,
-html {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: auto;
+.update-tournament-form {
+  max-width: 600px;
+  margin: 100px auto; /* Added margin-top to avoid overlap with the header */
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.title {
+.update-tournament-form h2 {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.update-tournament-form input[type="text"],
+.update-tournament-form input[type="number"],
+.update-tournament-form textarea,
+.update-tournament-form input[type="date"] {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #f9f9f9;
+}
+
+.update-tournament-form textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.update-tournament-form button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  background-color: #f44336; /* Red color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.update-tournament-form button:hover {
+  background-color: #45a049;
+}
+
+.update-tournament-form p {
   text-align: center;
   margin-top: 20px;
-  font-size: 2rem;
-  color: #ffffff; /* Fixed color code */
-}
-
-.back-button {
-  background-color: white;
-  color: black;
-  padding: 15px 70px;
-  border-radius: 30px;
   font-size: 16px;
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  transition: background-color 0.3s, transform 0.2s;
-  border: none;
-  position: absolute;
-  top: 20px;
-  left: 40px;
-  text-decoration: none;
-}
-
-.back-button:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px); /* Lift effect */
-}
-
-#continueButton {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-}
-#continueButton:hover {
-  background-color: #45a049;
-  transform: translateY(-2px); /* Lift effect */
-}
-
-/* Dropdown Section */
-.dropdown-container {
-  margin: 20px auto;
-  width: 45%;
-  max-width: 500px;
-  position: relative;
-  left: -75px;
-}
-
-.dropdown-label {
-  font-size: 1.2rem;
   font-weight: bold;
-  color: #ffffff; /* Fixed color code */
+  color: green;
 }
 
-.dropdown-select {
-  width: 100%;
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  margin-top: 10px;
-}
-
-/* Autocomplete Section */
-.autocomplete-container {
-  margin: 20px auto;
-  width: 100%;
-  max-width: 500px;
-  position: relative;
-  left: -80px;
-}
-
-.autocomplete-label {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #ffffff; /* Fixed color code */
-}
-
-.autocomplete-input-wrapper {
-  position: relative;
-}
-
-.autocomplete-input {
-  width: 100%;
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  margin-top: 10px;
-  position: relative;
-  left: -2px;
-}
-
-.suggestions-list {
-  position: absolute;
-  top: 40px;
-  left: 0;
-  width: 100%;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-top: none;
-  border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  max-height: 200px;
-  overflow-y: auto;
-  z-index: 10;
-  color: black;
-}
-
-.suggestion-item {
-  padding: 10px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.suggestion-item:hover,
-.highlighted {
-  background-color: #007bff;
-  color: white;
-}
-
-/* Dropdown Section */
-.dropdown-container {
-  margin: 20px auto;
-  width: 80%;
-  max-width: 500px;
-}
-
-.dropdown-label {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #ffffff; /* Fixed color code */
-}
-
-.dropdown-select {
-  width: 100%;
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  margin-top: 10px;
-}
-
-/* Clear Form Button */
-.clear-form-button {
-  padding: 10px 20px;
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  position: relative;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-  margin-top: 20px;
-  left: 50%; /* Center the button */
-  transform: translateX(-50%); /* Center the button */
-}
-
-.clear-form-button:hover {
-  background-color: #c82333;
-}
-
-/* Style for the Clear Button */
-button[type="button"] {
-  background-color: #f44336; /* Red background */
-  color: white; /* White text */
-  padding: 10px 20px; /* Padding around the text */
-  border: none; /* No border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor on hover */
-  font-size: 16px; /* Font size */
-  transition: background-color 0.3s ease; /* Smooth background color transition */
-}
-
-/* Hover effect for the Clear Button */
-button[type="button"]:hover {
-  background-color: #d32f2f; /* Darker red on hover */
-}
-
-/* Focus effect for the Clear Button (when clicked) */
-button[type="button"]:focus {
-  outline: none; /* Remove default outline */
-  box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.5); /* Orange glow */
-}
-
-.opponent-label {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 8px;
-  display: block;
-  position: relative;
-  left: 432px;
-}
-
-.tournament-name-label {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #ffffff; /* Fixed color code */
-  position: relative;
-  top: -40px;
-  left: 435px;
-}
-
-.tournament-name {
-  width: 37%;
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  margin-top: 40px;
-  position: relative;
-  left: 180px;
-  gap: 20px;
-}
-
-.numParticipants {
-  width: 37%;
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  margin-top: 10px;
-  position: relative;
-  left: 430px;
-}
-
-.participants-container {
-  margin-top: 20px;
+.update-tournament-form p.error {
+  color: red;
 }

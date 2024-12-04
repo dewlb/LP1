@@ -14,33 +14,45 @@ router.post('/updateTournament', async(req, res) => {
     console.log(u_collection);
     
     //change this so that max_size cant be changed
-    const {status = 0, name, max_size, current_size, participants, tournamentID, addUser = null, deleteUser = null} = req.body;
+    const {status = 0, name, max_size, current_size, participants, tournamentID, addUser = null, deleteUser = null, format, sport, start, end} = req.body;
 
     const inputTournament = {
-        name: name,         // account for duplicate names                  <-------- L O O K
+        name: name,
         max_size: max_size,
         current_size: current_size,
         participants: participants,
         tournamentID: tournamentID,
-        status: status
+        status: status,
+        format: format,
+        sport: sport,
+        start: start,
+        end: end
     }
 
     try{
 
-        // create updatedTournament object with same values as inputTournament except tournamentID so object id is not changed
+        // Exclude tournamentID from the new updated tournament
         const { tournamentID, ...updatedTournament } = inputTournament;
 
+        // Update the tournament object
         await t_collection.updateOne( {_id: ObjectId.createFromHexString(tournamentID)}, {$set: updatedTournament} );
 
-        if(addUser)     //if addUser is NOT null, a user is being added
-        {
-            // add tournament to user's list of tournaments
-            await u_collection.updateOne({_id: ObjectId.createFromHexString(addUser)}, {$push: {tournaments: name}});
+        // Fetch the updated tournament object
+        const tournament = await t_collection.findOne(
+            { _id: ObjectId.createFromHexString(tournamentID) }
+        );
+
+        if (!tournament) {
+            throw new Error("Tournament not found");
         }
-        if(deleteUser)      //if deleteUser is NOT null, a user is being deleted
-        {
+
+        if(addUser){
+            // add tournament to user's list of tournaments
+            await u_collection.updateOne({_id: ObjectId.createFromHexString(addUser)}, {$push: {tournaments: tournament}});
+        }
+        if(deleteUser){
             // delete tournament from user's list of tournaments
-            await u_collection.updateOne({_id: ObjectId.createFromHexString(deleteUser)}, {$pull: {tournaments: name}});
+            await u_collection.updateOne({_id: ObjectId.createFromHexString(deleteUser)}, {$pull: {tournaments: tournament}});
         }
 
         res.status(200).json({message: "Tournament updated successfully"});

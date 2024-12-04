@@ -1,51 +1,77 @@
-@keyframes fade-in 
-{
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
 
-    0%{
-        opacity: 0;
-        transform: translateY(30px) scale(.9);
-    }
-
-    100%{
-        opacity: 1;
-        transform: translateY(0px) scale(1);
-    }
-    
+  100% {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
 }
 
-
-
 .desc-container {
-    display: flex;
-    flex-direction: column; /* Stack the heading and table vertically */
-    align-items: center; /* Center the content horizontally */
-    margin: 30px auto; /* Center the container horizontally and add space from the top */
-    width: 90%; /* Adjust the width as needed */
-    max-width: 600px; /* Set a maximum width for better responsiveness */
-    background: transparent;
-    color: #ffffff;
-    backdrop-filter: blur(30px);
-    border: 1.5px solid #ca0e0e;
-    border-radius: 10px;
-    padding: 20px; /* Add padding for spacing inside the container */
-    box-sizing: border-box; /* Include padding in width calculation */
-    margin-top: 25vh;
-    animation: fade-in 1s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px auto;
+  width: 95%; /* Increased width */
+  max-width: 900px;
+  background: transparent;
+  color: #ffffff;
+  backdrop-filter: blur(30px);
+  border: 1.5px solid #ca0e0e;
+  border-radius: 10px;
+  padding: 30px;
+  box-sizing: border-box;
+  margin-top: 20vh;
+  animation: fade-in 1s;
+}
+
+.desc-label {
+  margin-top: -10px;
+  margin-bottom: 10px;
 }
 
 .team-container {
-    display: flex;
-    flex-direction: column; /* Stack the heading and table vertically */
-    align-items: center; /* Center the content horizontally */
-    margin: 30px auto; /* Center the container horizontally and add space from the top */
-    width: 90%; /* Adjust the width as needed */
-    max-width: 600px; /* Set a maximum width for better responsiveness */
-    background: transparent;
-    color: #ffffff;
-    backdrop-filter: blur(30px);
-    border: 1.5px solid #ca0e0e;
-    border-radius: 10px;
-    padding: 20px; /* Add padding for spacing inside the container */
-    box-sizing: border-box; /* Include padding in width calculation */
-    animation: fade-in 1s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px auto;
+  width: 95%;
+  max-width: 900px;
+  background: transparent;
+  color: #ffffff;
+  backdrop-filter: blur(30px);
+  border: 1.5px solid #ca0e0e;
+  border-radius: 10px;
+  padding: 30px;
+  box-sizing: border-box;
+  animation: fade-in 1s;
+  gap: 10px;
+}
+
+.sports-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Create 5 equal columns */
+  gap: 25px; /* Space between items */
+  padding: 30px;
+  border-radius: 10px;
+  animation: fade-in 1s;
+}
+
+.sports-item {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.3s;
+  color: black;
+}
+
+.sports-item:active {
+  transform: scale(0.98); /* Adds a 'click' effect */
 }
