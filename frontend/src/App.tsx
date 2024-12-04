@@ -16,6 +16,7 @@ import AboutUs from "./pages/AboutUs";
 import AboutPage from "./pages/AboutPage";
 import CreateTournament from "./pages/CreateTournament";
 import ProgressBar from "./pages/ProgressBar";
+import Tournament from "./pages/TournamentPage";
 
 function App() {
   return (
@@ -37,13 +38,17 @@ function MainContent() {
     "/Settings",
     "/connect",
     "/createTournament",
-    "/progressBar",
+    "/progressBar"
   ]; // Add other routes where Navbar should be hidden
+
+  const shouldHideNavbar = 
+    hideNavbarRoutes.includes(location.pathname) || 
+    location.pathname.startsWith("/item");
 
   return (
     <>
       {/* Conditionally render Navbar based on the current route */}
-      {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
+      {!shouldHideNavbar && <Navbar />}
 
       {/* Define your Routes */}
       <Routes>
@@ -58,6 +63,7 @@ function MainContent() {
         <Route path="/connect" element={<Connect />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/progressBar" element={<ProgressBar currentStep={1} />} />
+        <Route path="/item/:id" element={<Tournament />} />
       </Routes>
     </>
   );
