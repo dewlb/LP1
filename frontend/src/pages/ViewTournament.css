@@ -1,0 +1,187 @@
+.tournament-container {
+  background: url("https://wallpaperbat.com/img/35164-red-and-blue-wallpaper-top-free-red-and-blue-background.jpg")
+    center center / cover no-repeat; /* Image only */
+  min-height: 100vh; /* Full viewport height */
+  width: 100%; /* Full width */
+}
+
+.tournament-title {
+  position: relative;
+  margin-top: -100px;
+  text-align: center;
+}
+
+.details-container {
+  text-align: center; /* Center the content */
+  margin-top: 20px; /* Add spacing between sections */
+  border: 3px solid #be0000; /* Red border around the entire section */
+  padding: 20px; /* Add padding inside the container */
+  border-radius: 8px; /* Smooth rounded corners */
+  width: 40%;
+  position: relative;
+  left: 0px;
+  backdrop-filter: blur(5px);
+}
+
+.space {
+  position: relative;
+  margin-bottom: 10px; /* Space between the words section and the next element */
+}
+
+.details-container:hover {
+  transform: scale(1.05); /* Slight zoom effect on hover */
+  cursor: pointer;
+}
+
+.back-button {
+  background-color: white;
+  color: black;
+  padding: 15px 70px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: background-color 0.3s, transform 0.2s;
+  border: none;
+  position: absolute;
+  top: 500px;
+  left: 40px;
+}
+
+.back-button:hover {
+  background-color: #d6d6d6;
+  transform: translateY(-2px); /* Lift effect */
+}
+
+/* Style for both the Matches heading and the "No matches available" message */
+.no-matches {
+  position: relative;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #999; /* Adjust the color to suit your theme */
+  margin-top: 20px;
+  margin-bottom: 20px; /* Add spacing between the heading and list */
+}
+
+/* Style for the matches list */
+ul {
+  padding-left: 0;
+  list-style-type: none; /* Remove bullet points */
+}
+
+ul li {
+  font-size: 1.2rem; /* Match font size for the list items */
+  margin-bottom: 10px;
+}
+
+/* brackets */
+/* Style for the entire tournament container */
+.tournament-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Style for the bracket */
+.bracket {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  color: black;
+}
+
+/* Style for each match */
+.match {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+.match span {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin: 0 10px;
+  background-color: #f9f9f9;
+}
+
+/* To handle centering for large brackets (more matches) */
+.bracket div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* For odd numbered brackets, ensure the layout adjusts dynamically */
+.bracket .match {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Make sure the tournament container is using flex for vertical layout */
+.tournament-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Ensure the details container stays at the top and doesn't overlap */
+.details-container {
+  margin-bottom: 20px; /* Give space between the details and the bracket */
+}
+
+/* Bracket container should be centered below the details */
+.bracket {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 30px; /* Round the corners of the bracket container */
+  overflow: hidden; /* To ensure the content inside doesn't spill out */
+
+  align-items: center;
+  margin: 20px 0;
+  padding: 10px;
+  border-radius: 30px;
+}
+
+/* Style for each match */
+/* Individual match with rounded corners */
+.match {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+  font-size: 18px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #ddd;
+  border-radius: 10px; /* Round the corners of each match */
+}
+.match span {
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin: 0 10px;
+  background-color: #ddd;
+}
+
+/* Optional: Adjusting the round view if there are multiple rounds */
+.round {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.round .match {
+  margin: 10px 0;
+  font-size: 18px;
+}
