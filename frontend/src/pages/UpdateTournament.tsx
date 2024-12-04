@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"; // Import useParams
 import './UpdateTournament.css';
 
 const UpdateTournament: React.FC = () => {
-  const { tournamentID } = useParams(); // Grab tournamentID from the URL
+  const { id } = useParams(); // Grab id from the URL
 
   // Initialize state
   const [name, setName] = useState<string>("");
@@ -19,8 +19,8 @@ const UpdateTournament: React.FC = () => {
 
   // Fetch current tournament details on mount
   useEffect(() => {
-    console.log(tournamentID);
-    if (tournamentID) {
+    console.log(id);
+    if (id) {
       const fetchTournament = async () => {
         try {
           const response = await fetch(`http://cop4331-team14.xyz:3000/api/searchTournaments`, {
@@ -29,7 +29,7 @@ const UpdateTournament: React.FC = () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              objectId:tournamentID
+              objectId:id
             }),
           });
           if (!response.ok) {
@@ -54,11 +54,11 @@ const UpdateTournament: React.FC = () => {
 
       fetchTournament();
     }
-  }, [tournamentID]);
+  }, [id]);
 
   const handleUpdateTournament = async () => {
     const payload = {
-      tournamentID,
+      id,
       name,
       max_size: maxSize,
       current_size: currentSize,
