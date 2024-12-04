@@ -61,7 +61,7 @@ function MainContent() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/createTournament" element={<CreateTournament />} />
-        <Route path="/updateTournament/:tournamentID" element={<UpdateTournament />} />
+        <Route path="/updateTournament/:objectid" element={<UpdateTournament />} />
         <Route path="/MyProfile" element={<MyProfile />} />
         <Route path="/Settings" element={<Settings />} />
         <Route path="/connect" element={<Connect />} />
