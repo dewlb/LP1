@@ -1,24 +1,8 @@
-@keyframes color_fade {
-  0% {
-    background-position: 0 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0 50%;
-  }
-}
-
-/* Just a placeholder for now while I figure out what to do w background lol*/
 .background {
-  background: linear-gradient(45deg, #000000, #390c0c, #000000);
-  background-size: 200% 200%;
-  animation: color_fade 8s ease-in-out infinite;
-  min-height: 100vh; /* Ensures the background is at least the full viewport height */
-  width: 100%; /* Ensures the background spans the full width */
+  background: url("https://t4.ftcdn.net/jpg/04/33/50/77/360_F_433507716_M5xVv6LLof4Rj1iDMIBTd6GnFnLC8gFK.jpg")
+    center center / cover no-repeat; /* Image only */
+  min-height: 100vh; /* Full viewport height */
+  width: 100%; /* Full width */
 }
 
 .greeting {
@@ -76,7 +60,7 @@
 }
 
 .action-button:hover {
-  background-color: #0056b3; /* Darker shade on hover */
+  background-color: #d32f2f; /* Darker shade on hover */
   transform: translateY(-2px); /* Lift effect */
 }
 
@@ -130,7 +114,7 @@
 }
 
 .create-button:hover {
-  color: #1580f1;
+  color: #d32f2f;
   transform: scale(1.1);
   background-color: transparent;
 }
@@ -152,8 +136,8 @@
 }
 
 .search-box input:focus {
-  border-color: #1580f1; /* Highlight border when focused */
-  box-shadow: 0 0 5px rgba(21, 128, 241, 0.5);
+  border-color: #d32f2f; /* Highlight border when focused */
+  box-shadow: 0 0 5px #d32f2f8c;
 }
 
 .search-box .search-button {
@@ -168,7 +152,7 @@
 }
 
 .search-box .search-button:hover {
-  color: #0056b3;
+  color: #d32f2f;
   transform: scale(1.1);
   background-color: transparent;
 }
@@ -234,7 +218,7 @@
   display: block;
 }
 .dropdown:hover .dropbtn {
-  background-color: #0056b3;
+  background-color: #d32f2f;
 }
 
 .heading {
@@ -251,13 +235,12 @@
   align-items: center;
   margin: 30px auto;
   width: 90%;
-  max-width: 800px; 
-  background: rgba(77, 21, 21, 0.7); 
+  max-width: 900px;
+  background: transparent;
   color: #ffffff;
-  backdrop-filter: blur(15px); /* Smooth blur effect */
-  border: 2px solid #ca0e0e; /* Thicker border for better emphasis */
+  backdrop-filter: blur(30px); /* Smooth blur effect */
   border-radius: 10px;
-  padding: 30px; /* More spacing inside the container */
+  padding: 10px; /* More spacing inside the container */
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
   box-sizing: border-box;
 }
@@ -267,7 +250,12 @@
   width: 100%; /* Full width of the container */
   border-collapse: collapse; /* No gaps between cells */
   border: 1px solid #ca0e0e; /* Red border to encase the table */
-  background-color: rgba(0, 0, 0, 0.169); /* Semi-transparent table background */
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.169
+  ); /* Semi-transparent table background */
   overflow: hidden; /* Ensures the border remains neat */
   border-radius: 10px; /* Matches container's rounded corners */
 }
@@ -280,7 +268,12 @@
   color: #ffffff;
   font-size: 18px;
   font-weight: bold;
-  background-color: rgba(255, 255, 255, 0.2); /* Slightly contrasting background for headers */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.2
+  ); /* Slightly contrasting background for headers */
 }
 
 /* Table rows and cells */
@@ -290,7 +283,12 @@
   border: 1px solid #f1f1f180; /* Add subtle borders for definition */
   color: #ffffff;
   font-size: 16px;
-  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent cell background */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* Semi-transparent cell background */
 }
 
 /* Alternating row styles for readability */
@@ -313,7 +311,6 @@ td .view-btn {
   background-color: rgba(255, 255, 255, 0.2); /* Slightly brighter on hover */
   cursor: pointer; /* Indicate interactivity for better UX */
 }
-
 
 /* Styling for the update button */
 .update-btn {
