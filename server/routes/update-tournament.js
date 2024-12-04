@@ -48,11 +48,11 @@ router.post('/updateTournament', async(req, res) => {
 
         if(addUser){
             // add tournament to user's list of tournaments
-            await u_collection.updateOne({_id: ObjectId.createFromHexString(addUser)}, {$push: {tournaments: tournament}});
+            await u_collection.updateOne({_id: ObjectId.createFromHexString(addUser)}, {$push: {tournaments: name}});
         }
         if(deleteUser){
             // delete tournament from user's list of tournaments
-            await u_collection.updateOne({_id: ObjectId.createFromHexString(deleteUser)}, {$pull: {tournaments: tournament}});
+            await u_collection.updateOne({_id: ObjectId.createFromHexString(deleteUser)}, {$pull: {tournaments: name}});
         }
 
         res.status(200).json({message: "Tournament updated successfully"});
