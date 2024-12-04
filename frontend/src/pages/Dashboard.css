@@ -244,55 +244,76 @@
   text-align: center; /* Center the heading */
 }
 
+/* Container for the table */
 .Tournament-History {
   display: flex;
-  flex-direction: column; /* Stack the heading and table vertically */
-  align-items: center; /* Center the content horizontally */
-  margin: 30px auto; /* Center the container horizontally and add space from the top */
-  width: 90%; /* Adjust the width as needed */
-  max-width: 600px; /* Set a maximum width for better responsiveness */
-  background: transparent;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px auto;
+  width: 90%;
+  max-width: 800px; 
+  background: rgba(77, 21, 21, 0.7); 
   color: #ffffff;
-  backdrop-filter: blur(30px);
-  border: 1.5px solid #ca0e0e;
+  backdrop-filter: blur(15px); /* Smooth blur effect */
+  border: 2px solid #ca0e0e; /* Thicker border for better emphasis */
   border-radius: 10px;
-  padding: 20px; /* Add padding for spacing inside the container */
-  box-sizing: border-box; /* Include padding in width calculation */
+  padding: 30px; /* More spacing inside the container */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
+  box-sizing: border-box;
 }
 
+/* Style for the table */
 .Tournament-History table {
-  width: 100%; /* Ensure the table spans the full width of the container */
-  border-collapse: collapse; /* Remove extra spacing between table cells */
+  width: 100%; /* Full width of the container */
+  border-collapse: collapse; /* No gaps between cells */
+  border: 1px solid #ca0e0e; /* Red border to encase the table */
+  background-color: rgba(0, 0, 0, 0.169); /* Semi-transparent table background */
+  overflow: hidden; /* Ensures the border remains neat */
+  border-radius: 10px; /* Matches container's rounded corners */
 }
 
-.t-history {
-  width: 100%; /* Make the table take the full width of the container */
-  border-collapse: collapse; /* Remove space between table borders */
-}
-
-.t-history th,
-.t-history td {
+/* Table headers */
+.Tournament-History th {
   text-align: center;
   padding: 15px;
-  border: 1px solid #f1f1f180; /* Add borders for table cells */
-  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  border-bottom: 2px solid #ca0e0e; /* Distinct separation between header and content */
   color: #ffffff;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.2); /* Slightly contrasting background for headers */
 }
 
-.t-history th {
-  background-color: rgba(255, 255, 255, 0.2); /* Slightly darker for headers */
+/* Table rows and cells */
+.Tournament-History td {
+  text-align: center;
+  padding: 15px;
+  border: 1px solid #f1f1f180; /* Add subtle borders for definition */
+  color: #ffffff;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent cell background */
 }
 
-.t-history tbody tr:nth-child(odd) {
+/* Alternating row styles for readability */
+.Tournament-History tbody tr:nth-child(odd) {
   background-color: rgba(255, 255, 255, 0.05);
 }
-
-/* New styles*/
-/* Styling for the table cell */
-td {
-  text-align: center; /* Center the buttons in the table cell */
-  padding: 10px; /* Add some padding around the cell content */
+.Tournament-History tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.1);
 }
+
+/* Button group inside table cells */
+td .update-btn,
+td .delete-btn,
+td .view-btn {
+  margin: 5px;
+}
+
+/* Hover effect for rows */
+.Tournament-History tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Slightly brighter on hover */
+  cursor: pointer; /* Indicate interactivity for better UX */
+}
+
 
 /* Styling for the update button */
 .update-btn {
@@ -307,7 +328,7 @@ td {
 }
 
 .update-btn:hover {
-  background-color: #d32f2f; /* Darker green on hover */
+  background-color: #187628; /* Darker green on hover */
   transform: scale(1.05); /* Slightly enlarge the button on hover */
 }
 
@@ -342,6 +363,6 @@ td {
 }
 
 .view-btn:hover {
-  background-color: #d32f2f; /* Darker red on hover */
+  background-color: #e7c246; /* Darker red on hover */
   transform: scale(1.05); /* Slightly enlarge the button on hover */
 }
