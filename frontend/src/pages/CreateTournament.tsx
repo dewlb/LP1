@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./CreateTournament.css";
-import ProgressBar from "./ProgressBar";
+import ProgressBar from "./ProgressBar"
 //import red from "../assets/red.png";
 
 // icons
@@ -119,14 +119,16 @@ function CreateTournament() {
   };
 
   ///// Get username
-  const [username, setUsername] = useState("");
+  //const [username, setUsername] = useState("");
+  const [userID, setID] = useState("");
 
   useEffect(() => {
     // Retrieve user info from local storage
     const userInfo = localStorage.getItem("user-info");
     if (userInfo) {
       const user = JSON.parse(userInfo);
-      setUsername(user.username);
+     // setUsername(user.username);
+      setID(user._id);
     }
   }, []);
 
@@ -158,8 +160,7 @@ function CreateTournament() {
       !tournamentName ||
       !selectedFormat ||
       !numParticipants ||
-      !selectedSport ||
-      participantNames.some((name) => name === "")
+      !selectedSport
     ) {
       setMessage("Please fill out all fields.");
       return;
@@ -167,7 +168,7 @@ function CreateTournament() {
 
     const requestBody = {
       name: tournamentName,
-      userID: { username }, // Replace with the actual user ID
+      userID: { userID }, // Replace with the actual user ID
       size: parseInt(numParticipants, 10),
       sport: selectedSport,
       participants: participantNames, // Send the participants' names
