@@ -157,7 +157,14 @@ function CreateTournament() {
   };
 
   const [isMessageVisible, setIsMessageVisible] = useState(true); // Default is true, meaning the message is visible
+  const [isFirstVisit, setIsFirstVisit] = useState(true); // This will be true when the user first loads the page
 
+  useEffect(() => {
+    if (isFirstVisit) {
+      setIsMessageVisible(false); // Hide message container on first visit
+      setIsFirstVisit(false); // Set isFirstVisit to false after the first visit
+    }
+  }, [isFirstVisit]); // This runs once on component mount
   /////////// Clear form
 
   const clearForm = () => {
@@ -186,6 +193,7 @@ function CreateTournament() {
       !startDate
     ) {
       setMessage("Please fill out all fields.");
+      setIsMessageVisible(true); // Show the message container
       return;
     }
 
@@ -231,6 +239,9 @@ function CreateTournament() {
     } finally {
       setLoading(false);
     }
+
+    setMessage("Tournament created successfully!");
+    setIsMessageVisible(true); // Show the message container
   };
 
   //  Progress Bar  //
@@ -393,7 +404,7 @@ function CreateTournament() {
             {isMessageVisible && (
               <div className="message-container">
                 <button className="new-btn" onClick={goToTournamentInfo}>
-                  Create New Tournament
+                  Go to Tournament Info
                 </button>
                 {message && <div className="message">{message}</div>}
               </div>

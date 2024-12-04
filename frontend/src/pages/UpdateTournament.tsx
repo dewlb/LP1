@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom"; // Import useParams
 import './UpdateTournament.css';
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 const UpdateTournament: React.FC = () => {
   const { id } = useParams(); // Grab id from the URL
@@ -10,7 +12,6 @@ const UpdateTournament: React.FC = () => {
   const [maxSize, setMaxSize] = useState<number>(0);
   const [currentSize, setCurrentSize] = useState<number>(0);
   const [participants, setParticipants] = useState<string[]>([]);
-  const [status, setStatus] = useState<number>(0);
   const [format, setFormat] = useState<string>("");
   const [sport, setSport] = useState<string>("");
   const [start, setStart] = useState<string>("");
@@ -36,16 +37,18 @@ const UpdateTournament: React.FC = () => {
             throw new Error("Failed to fetch tournament data");
           }
           const data = await response.json();
+          console.log(data)
+          const tournament = data.tournaments[0];
+
           // Set the form with the fetched data
-          setName(data.name);
-          setMaxSize(data.max_size);
-          setCurrentSize(data.current_size);
-          setParticipants(data.participants);
-          setStatus(data.status);
-          setFormat(data.format);
-          setSport(data.sport);
-          setStart(data.start);
-          setEnd(data.end);
+          setName(tournament.name);
+          setMaxSize(tournament.max_size);
+          setCurrentSize(tournament.current_size);
+          setParticipants(tournament.participants);
+          setFormat(tournament.format);
+          setSport(tournament.sport);
+          setStart(tournament.start);
+          setEnd(tournament.end);
         } catch (error) {
           console.error("Error fetching tournament data:", error);
           setMessage("Error fetching tournament data");
@@ -54,11 +57,11 @@ const UpdateTournament: React.FC = () => {
 
       fetchTournament();
     }
-  }, [id]);
+  }, []);
 
   const handleUpdateTournament = async () => {
     const payload = {
-      id,
+      tournamentID: id,
       name,
       max_size: maxSize,
       current_size: currentSize,
@@ -93,6 +96,9 @@ const UpdateTournament: React.FC = () => {
 
   return (
     <div className="update-tournament-form">
+      <Link to="/dashboard">
+        <IoIosArrowRoundBack size={30} />
+      </Link>
       <h2>Update Tournament</h2>
       <input
         type="text"
@@ -102,21 +108,15 @@ const UpdateTournament: React.FC = () => {
       />
       <input
         type="number"
-        placeholder={maxSize === 0 ? "Max Size" : ""}
-        value={maxSize === 0 ? "" : maxSize}
-        onChange={(e) => setMaxSize(Number(e.target.value))}
+        placeholder="Max Size"
+        value={maxSize || ""}
+        onChange={(e) => setMaxSize(Number(e.target.value) || 0)}
       />
       <input
         type="number"
-        placeholder={currentSize === 0 ? "Current Size" : ""}
-        value={currentSize === 0 ? "" : currentSize}
-        onChange={(e) => setCurrentSize(Number(e.target.value))}
-      />
-      <input
-        type="number"
-        placeholder={status === 0 ? "Status" : ""}
-        value={status === 0 ? "" : status}
-        onChange={(e) => setStatus(Number(e.target.value))}
+        placeholder="Current Size"
+        value={currentSize || 0}
+        onChange={(e) => setCurrentSize(Number(e.target.value) || 0)}
       />
       <input
         type="text"
@@ -133,13 +133,13 @@ const UpdateTournament: React.FC = () => {
       <input
         type="date"
         placeholder="Start Date"
-        value={start}
+        value={start || ""}
         onChange={(e) => setStart(e.target.value)}
       />
       <input
         type="date"
         placeholder="End Date"
-        value={end}
+        value={end || ""}
         onChange={(e) => setEnd(e.target.value)}
       />
       <button onClick={handleUpdateTournament}>Update Tournament</button>

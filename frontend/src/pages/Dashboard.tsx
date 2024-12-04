@@ -152,7 +152,11 @@ function Dashboard() {
                   <td>{tournament.name}</td>
                   <td>{tournament.current_size}</td>
                   <td>{tournament.max_size}</td>
-                  <td>{tournament.participants.join(", ")}</td>
+                  <td>
+                    {Array.isArray(tournament.participants) 
+                      ? tournament.participants.filter((p) => typeof p === "string").join(", ") 
+                      : ""}
+                  </td>
                   <td>
                   <Link to={`/UpdateTournament/${tournament._id}`}><button className="update-btn">Update</button></Link>
                     <button className="delete-btn">Delete</button>
