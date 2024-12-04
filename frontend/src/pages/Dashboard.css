@@ -71,7 +71,7 @@
 }
 
 .logout-button {
-  color: rgb(255, 255, 255);
+  color: rgba(255, 255, 255, 0.829);
   cursor: pointer;
   transition: color 0.3s;
   position: relative;
@@ -81,7 +81,7 @@
 }
 
 .logout-button:hover {
-  color: #be0000; /* Darker shade on hover */
+  color: white; /* Darker shade on hover */
   transform: scale(1.1);
   -webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
@@ -235,6 +235,7 @@
   align-items: center;
   margin: 30px auto;
   width: 90%;
+
   max-width: 900px;
   background: transparent;
   color: #ffffff;
@@ -264,7 +265,7 @@
 .Tournament-History th {
   text-align: center;
   padding: 15px;
-  border-bottom: 2px solid #ca0e0e; /* Distinct separation between header and content */
+  border-bottom: 2px solid #abe0d7; /* Distinct separation between header and content */
   color: #ffffff;
   font-size: 18px;
   font-weight: bold;
