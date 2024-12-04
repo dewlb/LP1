@@ -404,7 +404,7 @@ function CreateTournament() {
             {isMessageVisible && (
               <div className="message-container">
                 <button className="new-btn" onClick={goToTournamentInfo}>
-                  Go to Tournament Info
+                  Create another tournament!
                 </button>
                 {message && <div className="message">{message}</div>}
               </div>
