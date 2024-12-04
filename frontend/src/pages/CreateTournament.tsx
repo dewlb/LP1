@@ -256,7 +256,7 @@ function CreateTournament() {
   };
 
   return (
-    <div>
+    <div className="create-background">
       <div className="title">
         <h1>Create Tournament</h1>
       </div>
@@ -404,7 +404,7 @@ function CreateTournament() {
             {isMessageVisible && (
               <div className="message-container">
                 <button className="new-btn" onClick={goToTournamentInfo}>
-                  Create another tournament!
+                  Go to Tournament Info
                 </button>
                 {message && <div className="message">{message}</div>}
               </div>
