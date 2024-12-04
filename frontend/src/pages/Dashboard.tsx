@@ -30,7 +30,7 @@ function Dashboard() {
   const [search, setSearch] = useState("");
   const [userID, setID] = useState("");
   const [tournaments, setTournaments] = useState<Tournament[]>([]);
-  const [tournID, setTournID] = useState("");
+  const [, setTournID] = useState("");
 
   useEffect(() => {
     const userInfo = localStorage.getItem("user-info");
