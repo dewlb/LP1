@@ -141,6 +141,50 @@
   background-color: transparent;
 }
 
+
+/* PASTE STARTS HERE */
+
+.search-box {
+  display: flex; /* Enable flexbox for alignment */
+  align-items: center; /* Vertically align input and button */
+  gap: 5px; /* Add spacing between input and button */
+}
+
+.search-box input {
+  padding: 10px;
+  border-radius: 5px 0 0 5px; /* Rounded corners, flat on right */
+  border: 1px solid #ccc;
+  outline: none;
+  flex: 1; /* Allow the input to grow and fill available space */
+}
+
+.search-box input:focus {
+  border-color: #1580f1; /* Highlight border when focused */
+  box-shadow: 0 0 5px rgba(21, 128, 241, 0.5);
+}
+
+.search-box .search-button {
+  background-color: transparent; 
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  text-decoration: none;
+  outline: none; 
+  border: none; 
+  padding: 0; 
+}
+
+.search-box .search-button:hover {
+  color: #0056b3; 
+  transform: scale(1.1);
+  background-color: transparent;
+}
+
+
+/*ENDS HERE*/
+
+
+/*
 .search-button{
   color: #ffffff;
   background-color: transparent;
@@ -149,16 +193,16 @@
   top: 50px;
   left: 40px;
   text-decoration: none;
-  outline: none; /* Remove the button outline */
-  border: none; /* Ensure no borders are visible */
-  padding: 0; /* Remove any default padding */
+  outline: none; 
+  border: none; 
+  padding: 0; 
 }
 
 .search-button:hover {
   color: #1580f1;
   transform: scale(1.1);
   background-color: transparent;
-}
+} */
 
 .dropbtn {
   background-color: white;
@@ -204,6 +248,14 @@
 }
 
 
+.heading {
+  margin-bottom: 15px; /* Space between heading and table */
+  color: #ffffff;
+  font-size: 24px; /* Adjust font size as needed */
+  text-align: center; /* Center the heading */
+}
+
+
 .Tournament-History {
   display: flex;
   flex-direction: column; /* Stack the heading and table vertically */
@@ -220,12 +272,11 @@
   box-sizing: border-box; /* Include padding in width calculation */
 }
 
-.heading {
-  margin-bottom: 15px; /* Space between heading and table */
-  color: #ffffff;
-  font-size: 24px; /* Adjust font size as needed */
-  text-align: center; /* Center the heading */
+.Tournament-History table {
+  width: 100%; /* Ensure the table spans the full width of the container */
+  border-collapse: collapse; /* Remove extra spacing between table cells */
 }
+
 
 .t-history {
   width: 100%; /* Make the table take the full width of the container */
