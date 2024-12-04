@@ -35,12 +35,12 @@ router.post('/updateTournament', async(req, res) => {
         if(addUser)     //if addUser is NOT null, a user is being added
         {
             // add tournament to user's list of tournaments
-            await u_collection.updateOne({_id: ObjectId.createFromHexString(addUser)}, {$push: {tournaments: tournamentID}});
+            await u_collection.updateOne({_id: ObjectId.createFromHexString(addUser)}, {$push: {tournaments: name}});
         }
         if(deleteUser)      //if deleteUser is NOT null, a user is being deleted
         {
             // delete tournament from user's list of tournaments
-            await u_collection.updateOne({_id: ObjectId.createFromHexString(deleteUser)}, {$pull: {tournaments: tournamentID}});
+            await u_collection.updateOne({_id: ObjectId.createFromHexString(deleteUser)}, {$pull: {tournaments: name}});
         }
 
         res.status(200).json({message: "Tournament updated successfully"});
