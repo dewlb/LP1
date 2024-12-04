@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { TbLogout2 } from "react-icons/tb";
-//import { IoMenu } from "react-icons/io5";
+import { IoMenu } from "react-icons/io5";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { LuSearch } from "react-icons/lu";
 import "./Dashboard.css";
@@ -21,16 +21,27 @@ function Dashboard() {
   const [userID, setID] = useState("");
   const [tournaments, setTournaments] = useState<Tournament[]>([]);
 
+
+  
+
   useEffect(() => {
     const userInfo = localStorage.getItem("user-info");
     if (userInfo) {
       const user = JSON.parse(userInfo);
       setUsername(user.username);
       setID(user._id);
-      loadTournaments();
+      //loadTournaments();
+      console.error("USERID:", userID);
+      console.error("USER:", username);
     }
   }, []);
 
+  useEffect(() => {
+    if (userID) {
+      loadTournaments();
+      console.error("Hello I am in here.")
+    }
+  }, [userID]);  // Trigger this effect whenever userID changes
 
   async function searchTournament()
   {

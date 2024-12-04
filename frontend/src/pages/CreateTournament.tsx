@@ -168,7 +168,7 @@ function CreateTournament() {
 
     const requestBody = {
       name: tournamentName,
-      userID: { userID }, // Replace with the actual user ID
+      userID:  userID , // Replace with the actual user ID
       size: parseInt(numParticipants, 10),
       sport: selectedSport,
       participants: participantNames, // Send the participants' names
