@@ -23,6 +23,7 @@ function Dashboard() {
   const [search, setSearch] = useState("");
   const [userID, setID] = useState("");
   const [tournaments, setTournaments] = useState<Tournament[]>([]);
+  const [tournID, setTournID] = useState("");
 
 
   
@@ -80,6 +81,34 @@ function Dashboard() {
   } 
 
 
+//Delete
+async function deleteTournament(tournamentID: string) {
+  try {
+    setTournID(tournamentID); // Set the selected tournament ID
+    const response = await fetch("http://cop4331-team14.xyz:3000/api/deleteTournament", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tournamentID,
+      }),
+    });
+
+    if (response.ok) {
+      console.log("Tournament deleted successfully.");
+      // Optionally, reload tournaments to reflect changes in the UI
+      loadTournaments();
+    } else {
+      console.error("Failed to delete tournament:", response.statusText);
+    }
+  } catch (error) {
+    console.error("Error deleting tournament:", error);
+  }
+}
+
+
+  //Load
   async function loadTournaments() {
     try {
       const response = await fetch("http://cop4331-team14.xyz:3000/api/searchTournaments", {
@@ -158,7 +187,16 @@ function Dashboard() {
                   <td>{tournament.participants.join(", ")}</td>
                   <td>
                   <Link to={`/UpdateTournament/${tournament._id}`}><button className="update-btn">Update</button></Link>
-                    <button className="delete-btn">Delete</button>
+                  <button
+                      onClick={() => {
+                        if (window.confirm("Are you sure you want to delete this tournament?")) {
+                          deleteTournament(tournament._id);
+                        }
+                      }}
+                      className="delete-btn">
+                      Delete
+                    </button>
+
                     </td>
                   
                 </tr>
