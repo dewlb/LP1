@@ -6,12 +6,13 @@
 }
 
 .greeting {
-  position: absolute; /* Allows free positioning */
+  position: relative; /* Allows free positioning */
   top: 35px; /* Adjust as needed */
   left: 50%; /* Centers horizontally */
   transform: translateX(-50%); /* Centers based on the element width */
   margin: 0; /* Remove unnecessary margin */
   color: #ffffff; /* Ensure contrast with the background */
+  margin-bottom: -60px;
 }
 
 .dashbody {
@@ -75,14 +76,14 @@
   cursor: pointer;
   transition: color 0.3s;
   position: relative;
-  top: 20px;
-  left: 20px;
+  top: 50px;
+  left: 40px;
   text-decoration: none;
   transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .logout-button:hover {
-  color: rgb(3, 2, 2); /* Darker shade on hover */
+  color: rgb(255, 255, 255); /* Darker shade on hover */
   transform: scale(1.1);
   -webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
@@ -133,6 +134,7 @@
   border-radius: 5px 0 0 5px; /* Rounded corners, flat on right */
   border: 1px solid #ccc;
   outline: none;
+  width: 600px;
   flex: 1; /* Allow the input to grow and fill available space */
 }
 
@@ -227,6 +229,9 @@
   color: #ffffff;
   font-size: 24px; /* Adjust font size as needed */
   text-align: center; /* Center the heading */
+  position: relative;
+  top: -60px;
+  z-index: 10;
 }
 
 /* Container for the table */
@@ -236,7 +241,8 @@
   align-items: center;
   margin: 30px auto;
   width: 90%;
-
+  position: relative;
+  top: -50px;
   max-width: 900px;
   background: transparent;
   color: #ffffff;
@@ -366,16 +372,25 @@ td .view-btn {
   transform: scale(1.05); /* Slightly enlarge the button on hover */
 }
 
+.join {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
 /* Ensure the parent container is a flex container */
 .join-container {
   display: flex; /* Enable flexbox */
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
-  padding-top: 10px;
 }
 
 .join-btn {
-  background-color: rgba(255, 255, 255, 0.1);; /* White background for contrast */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* White background for contrast */
   color: #ffffff; /* Matching your red border theme */
   font-size: 18px; /* Make it slightly larger for emphasis */
   font-weight: bold; /* Stand out */
@@ -385,6 +400,7 @@ td .view-btn {
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
   transition: background-color 0.3s, color 0.3s, transform 0.2s ease-in-out;
+  position: relative;
 }
 
 .join-btn:hover {
@@ -397,4 +413,39 @@ td .view-btn {
   transform: scale(0.98); /* Pressed down effect */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow */
   background-color: #11575f; /* Darker red for active state */
+}
+
+/* New */
+/* Tabs container */
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+  position: relative; /* Enable z-index on this element */
+  z-index: 10; /* Ensure it is above other elements */
+  top: 100px;
+  left: -220px;
+}
+
+/* Tab items */
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Active tab style */
+.tab.active {
+  background-color: #d32f2f;
+  color: white;
+  border-radius: 5px 5px 0 0;
+}
+
+/* Hover effect */
+.tab:hover {
+  background-color: #f1f1f1;
+  color: #363636;
 }
