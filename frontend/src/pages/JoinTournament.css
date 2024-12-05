@@ -16,22 +16,27 @@
   text-align: center;
   color: #ffffff;
   margin: 20px 0;
+  position: relative;
+  top: 20px;
 }
 
 /* Back button styling */
+/* Back button styling */
 .back-button {
   display: inline-block;
-  background-color: transparent; /* #3498db; */
+  background-color: transparent;
   color: #ffffff;
-  /*padding: 10px 20px;
+  padding: 10px 20px;
   text-decoration: none;
   border-radius: 5px;
   font-size: 1rem;
   margin: 15px;
-  transition: background-color 0.3s ease; */
   transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-  top: 280px;
-  position: absolute;
+
+  /* Positioning */
+  position: fixed;
+  bottom: 50px; /* Adjust to position the button vertically */
+  left: 20px; /* Adjust to position the button horizontally */
 }
 
 .back-button:hover {
