@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./CreateTournament.css";
-import ProgressBar from "./ProgressBar";
 //import red from "../assets/red.png";
 
 // icons
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
-import { IoIosArrowRoundBack } from "react-icons/io"
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 // The list of sports
 
@@ -148,13 +147,12 @@ function CreateTournament() {
   //// Submit
   const handlePrevious = () => {
     // Logic for the Previous button
-    setStep(step - 1);
+
     setMessage(""); // Clear the success message when navigating to the previous step
   };
 
   const goToTournamentInfo = () => {
     setIsMessageVisible(false); // Hide the message container when the button is clicked
-    setStep(1); // Navigate to the Tournament Info tab
   };
 
   const [isMessageVisible, setIsMessageVisible] = useState(true); // Default is true, meaning the message is visible
@@ -245,191 +243,151 @@ function CreateTournament() {
     setIsMessageVisible(true); // Show the message container
   };
 
-  //  Progress Bar  //
-  const [step, setStep] = useState(1);
-
-  const nextStep = () => {
-    if (step < 5) setStep((prev) => prev + 1);
-  };
-
-  const prevStep = () => {
-    if (step > 1) setStep((prev) => prev - 1);
-  };
-
   return (
     <div className="create-background">
       <div className="title">
         <h1>Create Tournament</h1>
       </div>
       <Link to="/dashboard" className="back-button">
-      <IoIosArrowRoundBack size={40} />
+        <IoIosArrowRoundBack size={40} />
       </Link>
-      <ProgressBar currentStep={step} />
+
       <div className="step-content">
         {/* Step 1: Basic Info */}
-        {step === 1 && (
-          <div>
-            <div className="tournament-name-container">
-              <label
-                htmlFor="tournament-name"
-                className="tournament-name-label"
-              >
-                Enter Tournament Name:
-              </label>
-              <input
-                type="text"
-                id="tournament-name"
-                className="tournament-name"
-                value={tournamentName} // Use a variable for the tournament name
-                onChange={handleTournamentNameChange} // Update state on input change
-                placeholder="Enter tournament name" // Clarify that it's for the tournament name
-              />
-            </div>
 
-            <div className="dropdown-container">
-              <label htmlFor="tournament-format" className="dropdown-label">
-                Select Tournament Format:
-              </label>
-              <select
-                id="tournament-format"
-                value={selectedFormat}
-                onChange={handleFormatChange}
-                className="dropdown-select"
-              >
-                <option value="" disabled>
-                  -- Select Format --
-                </option>
-                <option value="single-elimination">Single Elimination</option>
-                <option value="round-robin">Round Robin</option>
-                <option value="seeded">Seeded</option>
-              </select>
-            </div>
-          </div>
-        )}
-
-        {/* Step 2: Tournament Date and Status */}
-        {step === 2 && (
-          <div className="center-container">
-            <div className="date-status">
-              <div className="date-input-container">
-                <div className="date-field">
-                  <label htmlFor="start-date" className="sd-label">
-                    Start Date:
-                  </label>
-                  <input
-                    type="date"
-                    id="start-date"
-                    name="start-date"
-                    value={startDate}
-                    onChange={(e) => setStartDate(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <div className="date-field">
-                  <label htmlFor="end-date" className="ed-label">
-                    End Date:
-                  </label>
-                  <input
-                    type="date"
-                    id="end-date"
-                    name="end-date"
-                    value={endDate}
-                    onChange={(e) => setEndDate(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Step 3: Participants */}
-        {step === 3 && (
-          <div className="participants-container">
-            <label htmlFor="opponent" className="opponent-label">
-              Enter Number:
+        <div>
+          <div className="tournament-name-container">
+            <label htmlFor="tournament-name" className="tournament-name-label">
+              Enter Tournament Name:
             </label>
             <input
-              type="number"
-              id="opponent"
-              className="numParticipants"
-              value={numParticipants} // Set value to the state
-              onChange={handleNumParticipantsChange} // Update state on input change
-              placeholder="Enter number of participants"
-              min="1" // Ensure only valid numbers are entered
+              type="text"
+              id="tournament-name"
+              className="tournament-name"
+              value={tournamentName} // Use a variable for the tournament name
+              onChange={handleTournamentNameChange} // Update state on input change
+              placeholder="Enter tournament name" // Clarify that it's for the tournament name
             />
           </div>
-        )}
 
-        {step === 4 && (
-          <div className="autocomplete-container">
-            <label htmlFor="sport" className="autocomplete-label">
-              Search Sport:
+          <div className="dropdown-container">
+            <label htmlFor="tournament-format" className="dropdown-label">
+              Select Tournament Format:
             </label>
-            <div className="autocomplete-input-wrapper">
-              <input
-                type="text"
-                id="sport"
-                value={searchTerm}
-                onChange={handleSearchChange}
-                onKeyDown={handleKeyDown}
-                placeholder="Search sport..."
-                className="autocomplete-input"
-              />
-              {filteredSports.length > 0 && (
-                <ul className="suggestions-list">
-                  {filteredSports.map((sport, index) => (
-                    <li
-                      key={sport.name}
-                      className={`suggestion-item ${
-                        index === highlightIndex ? "highlighted" : ""
-                      }`}
-                      onClick={() => handleSelectSport(sport)}
-                    >
-                      {sport.name}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
+            <select
+              id="tournament-format"
+              value={selectedFormat}
+              onChange={handleFormatChange}
+              className="dropdown-select"
+            >
+              <option value="" disabled>
+                -- Select Format --
+              </option>
+              <option value="single-elimination">Single Elimination</option>
+              <option value="round-robin">Round Robin</option>
+              <option value="seeded">Seeded</option>
+            </select>
           </div>
-        )}
+        </div>
 
-        {step === 5 && (
-          <div>
-            <div className="submit-button-container">
-              <button onClick={handleCreateTournament}>Submit</button>
-            </div>
+        {/* Step 2: Tournament Date and Status */}
 
-            {isMessageVisible && (
-              <div className="message-container">
-                <button className="new-btn" onClick={goToTournamentInfo}>
-                  Go to Tournament Info
-                </button>
-                {message && <div className="message">{message}</div>}
+        <div className="center-container">
+          <div className="date-status">
+            <div className="date-input-container">
+              <div className="date-field">
+                <label htmlFor="start-date" className="sd-label">
+                  Start Date:
+                </label>
+                <input
+                  type="date"
+                  id="start-date"
+                  name="start-date"
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                  required
+                />
               </div>
-            )}
 
-            {/* Display the success or error message if available */}
-
-            <div className="navigation-buttons">
-              <button onClick={handlePrevious}>
-                {" "}
-                <IoIosArrowBack /> Previous
-              </button>
+              <div className="date-field">
+                <label htmlFor="end-date" className="ed-label">
+                  End Date:
+                </label>
+                <input
+                  type="date"
+                  id="end-date"
+                  name="end-date"
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                  required
+                />
+              </div>
             </div>
           </div>
-        )}
-      </div>
+        </div>
 
-      <div className="navigation-buttons">
-        <button onClick={prevStep} disabled={step === 1}>
-          <IoIosArrowBack /> Previous
-        </button>
-        <button onClick={nextStep} disabled={step === 5}>
-          Next <IoIosArrowForward />
-        </button>
+        {/* Step 3: Participants */}
+
+        <div className="participants-container">
+          <label htmlFor="opponent" className="opponent-label">
+            Enter Number:
+          </label>
+          <input
+            type="number"
+            id="opponent"
+            className="numParticipants"
+            value={numParticipants} // Set value to the state
+            onChange={handleNumParticipantsChange} // Update state on input change
+            placeholder="Enter number of participants"
+            min="1" // Ensure only valid numbers are entered
+          />
+        </div>
+
+        <div className="autocomplete-container">
+          <label htmlFor="sport" className="autocomplete-label">
+            Search Sport:
+          </label>
+          <div className="autocomplete-input-wrapper">
+            <input
+              type="text"
+              id="sport"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              onKeyDown={handleKeyDown}
+              placeholder="Search sport..."
+              className="autocomplete-input"
+            />
+            {filteredSports.length > 0 && (
+              <ul className="suggestions-list">
+                {filteredSports.map((sport, index) => (
+                  <li
+                    key={sport.name}
+                    className={`suggestion-item ${
+                      index === highlightIndex ? "highlighted" : ""
+                    }`}
+                    onClick={() => handleSelectSport(sport)}
+                  >
+                    {sport.name}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+
+        <div>
+          <div className="submit-button-container">
+            <button onClick={handleCreateTournament}>Submit</button>
+          </div>
+
+          {isMessageVisible && (
+            <div className="message-container">
+              {message && <div className="message">{message}</div>}
+            </div>
+          )}
+
+          {/* Display the success or error message if available */}
+        </div>
       </div>
     </div>
   );
