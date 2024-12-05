@@ -1,4 +1,4 @@
-body,
+/* Global styles */
 html {
   height: 100%;
   margin: 0;
@@ -6,21 +6,33 @@ html {
   overflow: auto;
 }
 
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Background */
+
 .create-background {
   background: url("https://t4.ftcdn.net/jpg/04/33/50/77/360_F_433507716_M5xVv6LLof4Rj1iDMIBTd6GnFnLC8gFK.jpg")
     center center / cover no-repeat;
   min-height: 100vh;
   width: 100%;
-  margin-top: -20px; /* Moves the whole container up */
+  margin: 0; /* Remove any margin to avoid overflow */
+  padding: 0; /* Remove any padding that could cause overflow */
+  overflow: hidden; /* Prevent any scrollbars */
 }
 
+/* Titles */
 .title {
   text-align: center;
   margin-top: 20px;
   font-size: 2rem;
-  color: #ffffff; /* Fixed color code */
+  color: #ffffff;
 }
 
+/* Buttons */
 .back-button {
   background-color: white;
   color: black;
@@ -28,83 +40,226 @@ html {
   border-radius: 30px;
   font-size: 16px;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s, transform 0.2s;
   border: none;
-  position: absolute;
-  top: 20px;
-  left: 40px;
+  position: relative;
+  margin-top: 250px;
+  margin-left: -50px;
   text-decoration: none;
 }
 
 .back-button:hover {
   background-color: #d6d6d6;
-  transform: translateY(-2px); /* Lift effect */
+  transform: translateY(-2px);
 }
 
+.navigation-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.navigation-buttons button {
+  padding: 10px 20px;
+  background-color: rgba(255, 0, 0, 0.829);
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.navigation-buttons button:hover {
+  background-color: rgba(202, 16, 16, 0.699);
+}
+
+.navigation-buttons button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+/* Tournament name */
+.tournament-name-label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffffff;
+  position: relative;
+  top: 0px;
+  left: 300px;
+}
+
+.tournament-name {
+  width: 41%;
+
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-top: 40px;
+  position: relative;
+  left: 395px;
+  gap: 20px;
+}
+
+/* Dropdown */
 .dropdown-container {
   margin: 20px auto;
   width: 45%;
   max-width: 500px;
   position: relative;
+  left: 205px;
 }
 
 .dropdown-label {
   font-size: 1.2rem;
   font-weight: bold;
   color: #ffffff;
-  text-align: left; /* Align text to the left */
-  display: block; /* Ensure the label takes up the full width */
-  margin-bottom: 5px; /* Add spacing between label and dropdown */
+
+  position: relative;
+  left: -330px;
+  bottom: -40px;
 }
 
 .dropdown-select {
-  width: 100%;
+  width: 110%;
   padding: 10px;
   font-size: 1rem;
   border-radius: 5px;
   border: 1px solid #ddd;
 }
 
-/* Autocomplete Section */
+/* Start/End date */
+/* Center container */
+
+.center-container {
+  display: flex;
+  flex-direction: row; /* Set row direction */
+  align-items: flex-start; /* Align items to the start */
+  justify-content: center; /* Center the content horizontally */
+  margin-top: 20px;
+
+  width: 100%;
+  max-width: 800px; /* Increase width to allow for row layout */
+  position: relative;
+  left: 300px;
+  gap: 20px; /* Add spacing between child elements */
+  position: relative;
+  left: 630px;
+}
+
+/* Date status container */
+.date-status {
+  display: flex;
+  flex-direction: row; /* Use row layout */
+  width: 100%;
+  gap: 20px;
+  flex-wrap: wrap; /* Ensure responsiveness on smaller screens */
+}
+
+/* Date input container */
+.date-input-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap; /* Wrap items when space is limited */
+}
+
+/* Individual date field */
+.date-field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  width: 100%; /* Full width for responsiveness */
+  max-width: 250px; /* Control width on larger screens */
+}
+
+/* Labels */
+.sd-label,
+.ed-label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffffff;
+  position: relative;
+  left: -330px;
+  bottom: -40px;
+}
+
+/* Input fields */
+.date-field input[type="date"] {
+  width: 150%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
+
+.date-field input[type="date"]:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Participants */
+.opponent-label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+  text-align: center;
+  margin-top: 50px;
+  position: relative;
+  left: -308px;
+  bottom: -10px;
+}
+
+.numParticipants {
+  width: 40%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-top: -30px;
+  display: block; /* Ensures the input takes up the full width defined */
+  position: relative;
+  left: 630px;
+}
+
+/* Autocomplete */
 .autocomplete-container {
   margin: 20px auto;
-  width: 100%;
   max-width: 500px;
   position: relative;
-  left: -80px;
+  left: 205px;
 }
 
 .autocomplete-label {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #ffffff; /* Fixed color code */
-  position: relative;
-  left: -20px;
-  top: 50px;
-}
+  color: #ffffff;
 
-.autocomplete-input-wrapper {
   position: relative;
-  right: -170px;
+
+  left: -330px;
+  bottom: -45px;
 }
 
 .autocomplete-input {
-  width: 100%;
+  width: 110%;
   padding: 10px;
   font-size: 1rem;
   border-radius: 5px;
   border: 1px solid #ddd;
   margin-top: 10px;
-  position: relative;
-  left: -2px;
 }
 
 .suggestions-list {
   position: absolute;
   top: 100%; /* Adjusted to make space between the input and suggestions */
   left: 0;
-  width: 100%;
+  width: 110%;
   background-color: rgba(255, 255, 255, 0.9); /* Slightly less transparent */
   border: 1px solid rgba(200, 200, 200, 0.7); /* Lighter border for better contrast */
   border-radius: 5px;
@@ -120,169 +275,59 @@ html {
 .suggestion-item {
   padding: 10px;
   cursor: pointer;
-  font-size: 1rem;
 }
 
 .suggestion-item:hover,
 .highlighted {
-  background-color: #6c757d; /* Slightly darker, more contrasting color */
-  color: white; /* White text for better contrast */
-  cursor: pointer; /* Indicates the item is clickable */
-  transition: background-color 0.2s ease, color 0.3s ease; /* Smooth transition for both background and text color */
-}
-
-/* Dropdown Section */
-.dropdown-container {
-  margin: 20px auto;
-  width: 80%;
-  max-width: 500px;
-}
-
-.dropdown-label {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #ffffff; /* Fixed color code */
-  position: relative;
-  left: -135px;
-  top: 30px;
-}
-
-.dropdown-select {
-  width: 113%;
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  margin-top: 10px;
-  position: relative;
-  top: -10px;
-  left: 200px;
-}
-
-.tournament-name-label {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #ffffff;
-  position: relative;
-  top: 0px;
-  left: 300px;
-}
-
-.tournament-name {
-  width: 41%;
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  margin-top: 40px;
-  position: relative;
-  left: 400px;
-  gap: 20px;
-}
-
-.opponent-label {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 8px;
-  display: block;
-  text-align: center;
-  margin-top: 30px;
-}
-
-/* Container for all participant fields */
-.participant-fields {
-  display: center; /* Arrange all participant fields inline */
-  flex-wrap: wrap; /* Allow wrapping to a new line if needed */
-  gap: 1rem; /* Add spacing between participant fields */
-  padding: 1rem; /* Add padding around the container */
-
-  border-radius: 8px; /* Rounded corners */
-  background-color: #f9f9f9; /* Light background for better visibility */
-  max-width: 800px; /* Restrict the width of the container */
-  margin: 1rem auto; /* Center the container horizontally */
-}
-
-/* Style for each participant field */
-.participant-name {
-  display: flex; /* Align label and input on the same line */
-  align-items: center; /* Vertically align label and input */
-  gap: 0.5rem; /* Space between label and input */
-  flex: 1 1 calc(50% - 1rem); /* Allow fields to be inline and responsive */
-  min-width: 300px; /* Minimum width for each field */
-}
-
-/* Input field styling */
-
-/* Number of Participants Input */
-.numParticipants {
-  width: 60%;
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  margin-top: 10px;
-  display: block; /* Ensures the input takes up the full width defined */
-  margin-left: auto; /* Centers the input */
-  margin-right: auto; /* Centers the input */
-}
-
-/* Container for Participants Section */
-.participants-container {
-  margin-top: 20px;
-  width: 200%; /* Limit the width of the container */
-  max-width: 500px; /* Maximum width to prevent overflow */
-  margin-left: auto; /* Centers the container */
-  margin-right: auto; /* Centers the container */
-  overflow: auto; /* Only show scrollbar if content exceeds container size */
-}
-
-/* Navigation Buttons */
-.navigation-buttons {
-  display: flex;
-  gap: 800px;
-  left: 180px;
-  width: 100%; /* Make the container span the entire width of its parent */
-  position: fixed; /* Position relative to the parent container */
-  top: 210px; /* Adjust vertical position relative to the parent container */
-  z-index: 1000; /* Keep buttons above other elements */
-}
-
-/* Styling for individual buttons */
-.navigation-buttons button {
-  padding: 10px 20px;
-  background-color: rgba(255, 0, 0, 0.829);
+  background-color: #6c757d;
   color: white;
-  border: none;
-  cursor: pointer;
+  transition: background-color 0.2s, color 0.3s;
+}
+
+/* Message Container */
+.message-container {
+  border: 1px solid white;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   border-radius: 5px;
+  margin-top: 40px;
+  width: 910px;
+  position: relative;
+  left: 20%;
+  top: -120px;
 }
 
-/* Button hover effect */
-.navigation-buttons button:hover {
-  background-color: rgba(202, 16, 16, 0.699);
+.message-container.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* Disable button styles */
-.navigation-buttons button:disabled {
-  background-color: #ddd;
-  cursor: not-allowed;
+.message {
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+  width: 100%;
+  position: relative;
+  bottom: -40px;
 }
 
-.navigation-buttons button:disabled:hover {
-  background-color: #dcdcdc;
-}
+/* Submit */
 
 /* Container for the submit button */
-.submit-button-container,
-.new-btn {
+.submit-button-container {
   display: flex;
   justify-content: center; /* Center button horizontally */
   margin-top: 50px;
+  margin-bottom: 50px;
+  position: relative;
+  left: 50px;
 }
 
 /* Submit button styling */
-.submit-button-container button,
-.new-btn {
+.submit-button-container button {
   background-color: rgba(255, 0, 0, 0.829); /* Blue button background */
   color: white;
   padding: 1rem 2rem;
@@ -296,181 +341,4 @@ html {
 /* Button hover effect */
 .submit-button-container button:hover {
   background-color: rgba(202, 16, 16, 0.699);
-}
-
-.message-container {
-  border: 1px solid white; /* Reduced the border thickness */
-  padding: 5px; /* Reduced the padding inside the container */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px; /* Reduced the gap between elements */
-  border-radius: 5px; /* Optional, for rounded corners */
-  position: relative;
-  margin-top: 40px;
-  height: 150px;
-  left: 430px;
-  width: 500px;
-}
-
-.message-container.hidden {
-  opacity: 0; /* Make it invisible */
-  pointer-events: none; /* Prevent any interaction when hidden */
-}
-
-.new-btn {
-  background-color: rgba(255, 0, 0, 0.829);
-  color: white;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  position: relative;
-  top: -20px;
-}
-
-.new-btn:hover {
-  background-color: rgba(202, 16, 16, 0.699); /* Darker green on hover */
-}
-
-.message {
-  padding: 5px;
-  border-radius: 5px;
-  text-align: center;
-  width: 100%; /* To make sure it fits inside */
-  margin-top: -10px;
-}
-
-.tournament-summary {
-  margin: 20px;
-  padding: 15px;
-  background-color: #f1f1f1;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  width: 80%;
-  max-width: 500px;
-  text-align: center;
-}
-
-.tournament-summary h3 {
-  margin-bottom: 15px;
-  color: #333;
-}
-
-.tournament-summary p {
-  font-size: 1rem;
-  color: #555;
-  margin: 5px 0;
-}
-
-.tournament-summary strong {
-  font-weight: bold;
-  color: #333;
-}
-
-.center-container {
-  display: flex;
-  justify-content: center; /* Centers horizontally */
-  align-items: center; /* Centers vertically */
-  height: 200px; /* Full viewport height */
-  width: 100%; /* Full width */
-  margin: 0 auto; /* Ensure centering for outer alignment */
-  flex-direction: column; /* Optional: align items vertically */
-}
-
-.save-date-btn-container {
-  text-align: center;
-  width: 100%;
-}
-
-.save-date-btn {
-  padding: 10px 20px;
-  font-size: 1rem;
-  background-color: #4caf50; /* Change as needed */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 50px;
-}
-
-.save-date-btn:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-.start-date {
-  width: 100%;
-}
-
-.date-label {
-  position: relative;
-  text-align: center;
-}
-.date-status {
-  margin-top: 40px;
-}
-
-.date-status h3 {
-  margin-bottom: 15px;
-}
-
-.date-input {
-  width: 100%; /* Ensure the input takes up the full width of the container */
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-.date-field label {
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.date-status button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.date-status button:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
-}
-
-.date-input-container {
-  display: flex;
-  flex-direction: row; /* Keep items side by side */
-  gap: 50px; /* Space between columns */
-  width: 200%;
-  margin-bottom: 15px;
-  position: relative;
-  right: 180px;
-}
-
-.date-field {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.sd-label,
-.ed-label {
-  margin-bottom: 5px; /* Reduce space between label and input */
-  font-weight: bold; /* Optional: make labels bold */
-  font-size: 1rem; /* Optional: adjust label font size */
-}
-
-.date-field input {
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 100%;
 }
