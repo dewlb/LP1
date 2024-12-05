@@ -243,12 +243,12 @@
   width: 90%;
   position: relative;
   top: -50px;
-  max-width: 900px;
+  max-width: 1000px;
   background: transparent;
   color: #ffffff;
   backdrop-filter: blur(30px); /* Smooth blur effect */
   border-radius: 10px;
-  padding: 10px; /* More spacing inside the container */
+  padding: 1px; /* More spacing inside the container */
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
   box-sizing: border-box;
 }
@@ -424,8 +424,8 @@ td .view-btn {
   border-bottom: 2px solid #ccc;
   position: relative; /* Enable z-index on this element */
   z-index: 10; /* Ensure it is above other elements */
-  top: 100px;
-  left: -220px;
+  top: 90px;
+  left: -280px;
 }
 
 /* Tab items */
