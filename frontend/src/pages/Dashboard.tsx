@@ -301,7 +301,7 @@ function Dashboard() {
                   <th>Current Participants</th>
                   <th>Total Participants</th>
                   <th>Participants</th>
-                  <th>Update/Delete</th>
+
                   <th>View</th>
                 </tr>
               </thead>
