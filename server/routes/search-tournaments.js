@@ -28,6 +28,10 @@ router.post('/searchTournaments', async (req, res) =>
             filter._id = ObjectId.createFromHexString(objectId);
         }
 
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); 
+        filter.start = { $gte: today.toISOString().split('T')[0] };
+
         const tournaments = await collection.find(filter)
             .skip(skip)
             .limit(limit)
