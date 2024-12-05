@@ -141,7 +141,7 @@ function Dashboard() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId: userID }), // Pass the userId here
+          body: JSON.stringify({ firstName: name }), // Use `name` instead of `firstName`
         }
       );
 
@@ -149,8 +149,13 @@ function Dashboard() {
         const data = await response.json();
         if (data.tournaments) {
           const joinedTournaments = data.tournaments.filter(
-            (tournament: Tournament) => {
-              return tournament.participants.includes(userID); // User is in the participants list
+            (tournament: any) => {
+              // Check if the user's first name exists in the tournament list
+              // Assuming firstName exists in the user data
+              const participantList = tournament.participants || []; // Assuming participants are in this field
+              return participantList.some(
+                (participant: string) => participant.includes(name) // Match based on name
+              );
             }
           );
           setJoinedTournaments(joinedTournaments);
