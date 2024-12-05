@@ -6,7 +6,7 @@
 }
 
 .greeting {
-  position: relative; /* Allows free positioning */
+  position: absolute; /* Allows free positioning */
   top: 35px; /* Adjust as needed */
   left: 50%; /* Centers horizontally */
   transform: translateX(-50%); /* Centers based on the element width */
