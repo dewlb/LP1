@@ -14,7 +14,7 @@ import Settings from "./pages/Settings";
 import Connect from "./pages/Connect";
 import AboutUs from "./pages/AboutUs";
 import AboutPage from "./pages/AboutPage";
-import CreateTournament from "./pages/NewCreatePage";
+import CreateTournament from "./pages/CreateTournament";
 import ProgressBar from "./pages/ProgressBar";
 import Tournament from "./pages/TournamentPage";
 import UpdateTournament from "./pages/UpdateTournament";

@@ -21,30 +21,22 @@
 }
 
 /* Back button styling */
-/* Back button styling */
 .back-button {
+  position: absolute; /* Position the button relative to the page */
+  top: 15px;          /* Adjust this value for vertical spacing from the top */
+  left: 15px;         /* Adjust this value for horizontal spacing from the left */
   display: inline-block;
   background-color: transparent;
   color: #ffffff;
-  padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  margin: 15px;
   transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-
-  /* Positioning */
-  position: fixed;
-  bottom: 50px; /* Adjust to position the button vertically */
-  left: 20px; /* Adjust to position the button horizontally */
 }
 
 .back-button:hover {
-  /* background-color: #2980b9; */
   color: #21a6ed;
   transform: scale(1.1);
   background-color: transparent;
 }
+
 /* Search Input and Button */
 .search-container {
   display: flex;

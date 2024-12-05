@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { IoIosArrowRoundBack } from "react-icons/io";
 import "./viewTournament.css";
 
 const ViewTournament: React.FC = () => {
@@ -188,7 +189,7 @@ const ViewTournament: React.FC = () => {
       {/* If there's a message (error or success), display it */}
       {message && <p>{message}</p>}
       <button className="back-button" onClick={handleBackClick}>
-        Back
+      <IoIosArrowRoundBack size={40} />
       </button>
       <button
         className="trash"

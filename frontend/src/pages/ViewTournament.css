@@ -33,6 +33,7 @@
   cursor: pointer;
 }
 
+/*
 .back-button {
   background-color: white;
   color: black;
@@ -40,7 +41,7 @@
   border-radius: 30px;
   font-size: 16px;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow 
   transition: background-color 0.3s, transform 0.2s;
   border: none;
   position: absolute;
@@ -50,8 +51,8 @@
 
 .back-button:hover {
   background-color: #d6d6d6;
-  transform: translateY(-2px); /* Lift effect */
-}
+  transform: translateY(-2px); 
+}  */
 
 /* Style for both the Matches heading and the "No matches available" message */
 .no-matches {
