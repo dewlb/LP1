@@ -1,19 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { IoIosArrowRoundBack } from "react-icons/io";
+import { useParams, useNavigate } from "react-router-dom";
 import "./viewTournament.css";
 
 const ViewTournament: React.FC = () => {
   const navigate = useNavigate();
-
-  const handleBackClick = () => {
-    navigate("/dashboard");
-  };
-
   const { id } = useParams<string>();
 
-  // Initialize state
+  // State initialization
   const [name, setName] = useState<string>("");
   const [maxSize, setMaxSize] = useState<number>(0);
   const [currentSize, setCurrentSize] = useState<number>(0);
@@ -22,10 +15,16 @@ const ViewTournament: React.FC = () => {
   const [sport, setSport] = useState<string>("");
   const [start, setStart] = useState<string>("");
   const [end, setEnd] = useState<string>("");
+  const [rounds, setRounds] = useState<string[][][]>([]);
   const [message, setMessage] = useState<string>("");
-  const [matches, setMatches] = useState<[string, string][]>([]); // Correct type for matches
+  const [matchResults, setMatchResults] = useState<{ [key: string]: number }>(
+    {}
+  );
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [editRoundIndex, setEditRoundIndex] = useState<number | null>(null);
+  const [editMatchIndex, setEditMatchIndex] = useState<number | null>(null);
+  const [newWinner, setNewWinner] = useState<string>("");
 
-  // Fetch current tournament details on mount or when the ID changes
   useEffect(() => {
     if (id) {
       const fetchTournament = async () => {
@@ -37,14 +36,11 @@ const ViewTournament: React.FC = () => {
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({
-                objectId: id,
-              }),
+              body: JSON.stringify({ objectId: id }),
             }
           );
-          if (!response.ok) {
-            throw new Error("Failed to fetch tournament data");
-          }
+          if (!response.ok) throw new Error("Failed to fetch tournament data");
+
           const data = await response.json();
           const tournament = data.tournaments[0];
 
@@ -57,15 +53,12 @@ const ViewTournament: React.FC = () => {
           setStart(tournament.start);
           setEnd(tournament.end);
 
-          // Check if there's only one participant
-          if (tournament.participants && tournament.participants.length === 1) {
-            setMatches([
-              [`${tournament.participants[0]} has won the tournament!`, ""],
-            ]);
-          } else {
-            // Generate matches if there are multiple participants
-            const generatedMatches = generateMatches(tournament.participants);
-            setMatches(generatedMatches);
+          if (tournament.participants.length > 1) {
+            const initialRound = generateMatches(
+              tournament.participants,
+              tournament.format
+            );
+            setRounds([initialRound]);
           }
         } catch (error) {
           console.error("Error fetching tournament data:", error);
@@ -76,127 +69,190 @@ const ViewTournament: React.FC = () => {
     }
   }, [id]);
 
-  // Generates matches from participants
-  const generateMatches = (participants: string[]): any[] => {
-    let matches = [];
+  const generateMatches = (
+    participants: string[],
+    format: string
+  ): string[][] => {
+    const matches: string[][] = [];
 
-    // Ensure participants is a multiple of 2
-    while (participants.length % 2 !== 0) {
-      participants.push("-----"); // This handles odd number of participants
-    }
+    if (format === "round-robin") {
+      for (let i = 0; i < participants.length; i++) {
+        for (let j = i + 1; j < participants.length; j++) {
+          matches.push([participants[i], participants[j]]);
+        }
+      }
+    } else if (format === "seeded" || format === "single-elimination") {
+      if (participants.length % 2 !== 0) {
+        participants.push("-----");
+      }
 
-    // Pair participants into matches
-    for (let i = 0; i < participants.length; i += 2) {
-      // Check if both participants are valid (not "-----")
-      if (participants[i] !== "-----" && participants[i + 1] !== "-----") {
+      for (let i = 0; i < participants.length; i += 2) {
         matches.push([participants[i], participants[i + 1]]);
-      } else if (
-        participants[i] !== "-----" &&
-        participants[i + 1] === "-----"
-      ) {
-        // If only the first participant is valid, it's a bye-round
-        matches.push([participants[i]]);
-      } else if (
-        participants[i] === "-----" &&
-        participants[i + 1] !== "-----"
-      ) {
-        // Handle the edge case where the first participant is "-----" and second is valid
-        matches.push([participants[i + 1]]);
       }
     }
 
     return matches;
   };
 
-  const handleViewTournament = async () => {
-    const payload = {
-      tournamentID: id,
-      name,
-      max_size: maxSize,
-      current_size: currentSize,
-      participants,
-      format,
-      sport,
-      start,
-      end,
-    };
+  const handleMatchResult = (
+    winner: string,
+    roundIndex: number,
+    matchIndex: number
+  ) => {
+    const newRounds = [...rounds];
+    const currentRound = newRounds[roundIndex];
 
-    try {
-      const response = await fetch(
-        "http://cop4331-team14.xyz:3000/api/updateTournament",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
+    currentRound[matchIndex] = [winner, "-----"];
+    setRounds(newRounds);
 
-      if (!response.ok) {
-        throw new Error("Failed to update tournament");
+    if (format === "round-robin") {
+      const updatedResults = { ...matchResults };
+      updatedResults[winner] = (updatedResults[winner] || 0) + 1;
+      setMatchResults(updatedResults);
+    }
+
+    const allResolved = currentRound.every(
+      ([team1, team2]) => team1 !== "" && team2 === "-----"
+    );
+
+    if (allResolved) {
+      let winners = currentRound
+        .map((match) => match[0])
+        .filter((team) => team !== "-----");
+
+      if (format === "round-robin") {
+        const sortedParticipants = Object.entries(matchResults).sort(
+          ([, wins1], [, wins2]) => wins2 - wins1
+        );
+        const winner = sortedParticipants[0][0];
+        setMessage(`Congratulations! The winner is ${winner}`);
+        return;
       }
 
-      const data = await response.json();
-      setMessage(data.message || "Tournament updated successfully");
-    } catch (error) {
-      console.error("Error updating tournament:", error);
-      setMessage("Error updating tournament. Check console for details.");
+      if (winners.length === 1) {
+        setMessage(`Congratulations! The winner is ${winners[0]}`);
+        return;
+      }
+
+      if (winners.length % 2 !== 0) {
+        winners.push("-----");
+      }
+
+      if (newRounds.length === roundIndex + 1) {
+        const nextRound = generateMatches(winners, format);
+        setRounds([...newRounds, nextRound]);
+      }
+    }
+  };
+
+  const handleEditWinner = (
+    roundIndex: number,
+    matchIndex: number,
+    currentWinner: string
+  ) => {
+    setIsEditing(true);
+    setEditRoundIndex(roundIndex);
+    setEditMatchIndex(matchIndex);
+    setNewWinner(currentWinner);
+  };
+
+  const handleSaveEdit = () => {
+    if (editRoundIndex !== null && editMatchIndex !== null) {
+      const newRounds = [...rounds];
+      const currentRound = newRounds[editRoundIndex];
+
+      currentRound[editMatchIndex] = [newWinner, "-----"];
+      setRounds(newRounds);
+
+      setIsEditing(false);
+      setEditRoundIndex(null);
+      setEditMatchIndex(null);
+      setNewWinner("");
     }
   };
 
   return (
     <div className="tournament-container">
       <h1 className="tournament-title">Tournament - {name}</h1>
+
+      {rounds.map((round, roundIndex) => (
+        <div key={roundIndex} className="round">
+          <div className="round-title">Round {roundIndex + 1}</div>
+
+          {round.map((match, matchIndex) => (
+            <div key={matchIndex} className="match">
+              {roundIndex === rounds.length - 1 &&
+              match[0] !== "-----" &&
+              match[1] === "-----" ? (
+                <span className="team winner">{match[0]}</span>
+              ) : (
+                <span
+                  className="team"
+                  onClick={() =>
+                    handleMatchResult(match[0], roundIndex, matchIndex)
+                  }
+                  style={{ cursor: "pointer" }}
+                >
+                  {match[0]}
+                </span>
+              )}
+
+              {roundIndex === rounds.length - 1 &&
+              match[1] !== "-----" &&
+              match[0] === "-----" ? (
+                <span className="team winner">{match[1]}</span>
+              ) : (
+                match[1] !== "-----" && (
+                  <span
+                    className="team"
+                    onClick={() =>
+                      handleMatchResult(match[1], roundIndex, matchIndex)
+                    }
+                    style={{ cursor: "pointer" }}
+                  >
+                    {match[1]}
+                  </span>
+                )
+              )}
+
+              {isEditing &&
+                editRoundIndex === roundIndex &&
+                editMatchIndex === matchIndex && (
+                  <div className="edit-winner">
+                    <input
+                      type="text"
+                      value={newWinner}
+                      onChange={(e) => setNewWinner(e.target.value)}
+                    />
+                    <button onClick={handleSaveEdit}>Save</button>
+                  </div>
+                )}
+            </div>
+          ))}
+        </div>
+      ))}
+
+      {message && <div className="winner-message">{message}</div>}
+
       <div className="details-container">
-        <div className="space">
+        <div>
           <strong>Sport:</strong> {sport}
-          <p></p>
         </div>
-        <div className="space">
+        <div>
           <strong>Format:</strong> {format}
-          <p></p>
         </div>
-        <div className="space">
+        <div>
           <strong>Start:</strong> {start} | <strong>End: </strong>
           {end}
-          <p></p>
         </div>
-        <div className="space">
+        <div>
           <strong>{currentSize}</strong> out of <strong>{maxSize}</strong>{" "}
           participants are enrolled
         </div>
       </div>
 
-      {/* Render the tournament bracket */}
-      {matches.length > 0 && (
-        <div className="bracket">
-          {matches.map((match, index) => (
-            <div key={index} className="match">
-              {/* If there's only one participant, display the winner message */}
-              {currentSize === 1 ? (
-                <span>{match[0]}</span> // No "vs" here for the single participant
-              ) : (
-                <span>
-                  {match[0]} vs {match[1]}
-                </span>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* If there's a message (error or success), display it */}
-      {message && <p>{message}</p>}
-      <button className="back-button" onClick={handleBackClick}>
-      <IoIosArrowRoundBack size={40} />
-      </button>
-      <button
-        className="trash"
-        onClick={handleViewTournament}
-        style={{ display: "none" }}
-      >
-        Trash
+      <button className="back-button" onClick={() => navigate("/dashboard")}>
+        Back
       </button>
     </div>
   );
